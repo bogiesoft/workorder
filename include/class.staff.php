@@ -102,6 +102,21 @@ class Staff {
         if(Passwd::cmp($password, $this->getPasswd()))
             return true;
 
+//Added 2014-01-20 2:00pm
+         //After user has been created, allow logon with AD credentials
+         $ds=ldap_connect('iasis-dhm-dc1.iasis.corp') or die("Couldn't connect to AD!");
+ 
+         if ($ds) {
+             $domain="iasis";
+             $ldapbind = ldap_bind($ds);
+             if (!@ldap_bind( $ds, $domain."\\".$this->getUserName(), $password) ) {
+                 return(FALSE);
+             } else {
+                 return(TRUE);
+             }
+         }
+//End Added
+
         //Fall back to MD5
         if(!$password || strcmp($this->getPasswd(), MD5($password)))
             return false;
