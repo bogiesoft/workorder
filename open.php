@@ -73,12 +73,14 @@ if($ticket
             (($topic = $ticket->getTopic()) && ($page = $topic->getPage()))
             || ($page = $cfg->getThankYouPage())
             )) { //Thank the user and promise speedy resolution!
+//Added 2014-01-22 5:00 pm Ticket number unhidden by below comments
     //Hide ticket number -  it should only be delivered via email for security reasons.
-    echo Format::safe_html($ticket->replaceVars(str_replace(
-                    array('%{ticket.number}', '%{ticket.extId}', '%{ticket}'), //ticket number vars.
-                    array_fill(0, 3, 'XXXXXX'),
+    echo Format::safe_html($ticket->replaceVars(//str_replace(
+                    //array('%{ticket.number}', '%{ticket.extId}', '%{ticket}'), //ticket number vars.
+                    //array_fill(0, 3, 'XXXXXX'),
                     $page->getBody()
-                    )));
+                    ));//);
+//End Added 
 } else {
     require(CLIENTINC_DIR.'open.inc.php');
 }
