@@ -51,6 +51,9 @@ if($ticket->isOverdue())
             </span>
             <?php
             } ?>
+<!-- Added 2014-01-21 Explore button with icon -->
+                <a id="ticket-explore" class="action-button" href="#explore"><i class="icon-road"></i> Explore</a>
+<!-- End Added -->
             <?php if($thisstaff->canDeleteTickets()) { ?>
                 <a id="ticket-delete" class="action-button" href="#delete"><i class="icon-trash"></i> Delete</a>
             <?php } ?>
@@ -201,8 +204,14 @@ if($ticket->isOverdue())
                     <td><?php
                         echo Format::htmlchars($ticket->getSource());
 
-                        if($ticket->getIP())
-                            echo '&nbsp;&nbsp; <span class="faded">('.$ticket->getIP().')</span>';
+//Added 2014-01-21 Now displays hostname if available
+                        $hostname=$ticket->getHostname();
+                        $ipaddress=$ticket->getIP();
+                        if($hostname)
+                            echo '&nbsp;&nbsp; <span class="faded">('.$hostname.')</span>';
+                        else
+                            echo '&nbsp;&nbsp; <span class="faded">('.$ipaddress.')</span>';
+//End Added
                         ?>
                     </td>
                 </tr>
@@ -839,6 +848,21 @@ $tcount+= $ticket->getNumNotes();
     </form>
     <div class="clear"></div>
 </div>
+
+<!-- Added 2014-01-21 Exploration -->
+<div style="display:none;" class="dialog" id="exploration">
+    <h3>Ticket Exploration</h3>
+    <a class="close" href="">&times;</a>
+    <hr/>
+    <a href="http://<?php if($hostname)
+        echo $hostname;
+    else
+        echo $ipaddress;
+    ?>:5800">VNC via Web Browser</a>
+    <div class="clear"></div>
+</div>
+<!-- End Added -->
+
 <div style="display:none;" class="dialog" id="ticket-status">
     <h3><?php echo sprintf('%s Ticket #%s', ($ticket->isClosed()?'Reopen':'Close'), $ticket->getNumber()); ?></h3>
     <a class="close" href=""><i class="icon-remove-circle"></i></a>

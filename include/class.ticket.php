@@ -305,6 +305,12 @@ class Ticket {
         return $this->ht['ip_address'];
     }
 
+//Added 2014-01-21 Get hostname from DB
+    function getHostname() {
+        return $this->ht['hostname'];
+    }
+//End Added
+
     function getHashtable() {
         return $this->ht;
     }
@@ -2094,6 +2100,9 @@ class Ticket {
         $deptId=$deptId?$deptId:$cfg->getDefaultDeptId();
         $topicId=$vars['topicId']?$vars['topicId']:0;
         $ipaddress=$vars['ip']?$vars['ip']:$_SERVER['REMOTE_ADDR'];
+//Added 2014-01-21 GEt hostname on ticket creation
+        $hostname=gethostbyaddr($ipaddress);
+//End Added
 
         //We are ready son...hold on to the rails.
         $extId=Ticket::genExtRandID();
@@ -2104,6 +2113,9 @@ class Ticket {
             .' ,dept_id='.db_input($deptId)
             .' ,topic_id='.db_input($topicId)
             .' ,ip_address='.db_input($ipaddress)
+//Added 2014-01-21 insert hostname into DB
+            .' ,hostname='.db_input($hostname)
+//End Added
             .' ,source='.db_input($source);
 
         //Make sure the origin is staff - avoid firebug hack!
