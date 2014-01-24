@@ -1,7 +1,7 @@
 #
 # Email template: transfer.alert.yaml
 #
-# Sent to staff members when a ticket is assigned to them. Tickets can be
+# Sent to staff members when a workorder is assigned to them. Tickets can be
 # assigned automatically by the system or manually by another staff member.
 # Use %{assigner} to distinguish who made the assignment.
 #
@@ -22,7 +22,7 @@ body: |
     </blockquote>
     <hr>
     <div>To view or respond to the ticket, please <a
-    href="%{ticket.staff_link}">login</a> to the support ticket system.
+    href="%{ticket.staff_link}">login</a> to the support workorder system.
     </div>
     <em style="font-size: small; ">Your friendly Customer Support
     System</em>

@@ -823,8 +823,8 @@ class Ticket {
         global $ost, $cfg;
 
         //Log the limit notice as a warning for admin.
-        $msg=sprintf('Max open tickets (%d) reached  for %s ', $cfg->getMaxOpenTickets(), $this->getEmail());
-        $ost->logWarning('Max. Open Tickets Limit ('.$this->getEmail().')', $msg);
+        $msg=sprintf('Max open workorders (%d) reached  for %s ', $cfg->getMaxOpenTickets(), $this->getEmail());
+        $ost->logWarning('Max. Open Workorders Limit ('.$this->getEmail().')', $msg);
 
         if(!$sendNotice || !$cfg->sendOverLimitNotice()) return true;
 
@@ -848,8 +848,8 @@ class Ticket {
         $client= $this->getClient();
 
         //Alert admin...this might be spammy (no option to disable)...but it is helpful..I think.
-        $alert='Max. open tickets reached for '.$this->getEmail()."\n"
-              .'Open ticket: '.$client->getNumOpenTickets()."\n"
+        $alert='Max. open workorders reached for '.$this->getEmail()."\n"
+              .'Open workorder: '.$client->getNumOpenTickets()."\n"
               .'Max Allowed: '.$cfg->getMaxOpenTickets()."\n\nNotice sent to the user.";
 
         $ost->alertAdmin('Overlimit Notice', $alert);
@@ -925,11 +925,11 @@ class Ticket {
 
         $this->reload();
 
-        $comments = $comments?$comments:'Ticket assignment';
+        $comments = $comments?$comments:'Workorder assignment';
         $assigner = $thisstaff?$thisstaff:'SYSTEM (Auto Assignment)';
 
         //Log an internal note - no alerts on the internal note.
-        $note = $this->logNote('Ticket Assigned to '.$assignee->getName(),
+        $note = $this->logNote('Workorder Assigned to '.$assignee->getName(),
             $comments, $assigner, false);
 
         //See if we need to send alerts
@@ -1190,7 +1190,7 @@ class Ticket {
             $this->selectSLAId();
 
         /*** log the transfer comments as internal note - with alerts disabled - ***/
-        $title='Ticket transfered from '.$currentDept.' to '.$this->getDeptName();
+        $title='Workorder transfered from '.$currentDept.' to '.$this->getDeptName();
         $comments=$comments?$comments:$title;
         $note = $this->logNote($title, $comments, $thisstaff, false);
 
@@ -1343,8 +1343,8 @@ class Ticket {
         $this->ht['user_id'] = $user->getId();
         $this->user = null;
 
-        $this->logNote('Ticket ownership changed',
-                Format::htmlchars( sprintf('%s changed ticket ownership to %s',
+        $this->logNote('Workorder ownership changed',
+                Format::htmlchars( sprintf('%s changed workorder ownership to %s',
                     $thisstaff->getName(), $user->getName()))
                 );
 
@@ -1718,7 +1718,7 @@ class Ticket {
 
         if($vars['duedate']) {
             if($this->isClosed())
-                $errors['duedate']='Due date can NOT be set on a closed ticket';
+                $errors['duedate']='Due date can NOT be set on a closed workorder';
             elseif(!$vars['time'] || strpos($vars['time'],':')===false)
                 $errors['time']='Select time';
             elseif(strtotime($vars['duedate'].' '.$vars['time'])===false)
@@ -1747,9 +1747,9 @@ class Ticket {
             return false;
 
         if(!$vars['note'])
-            $vars['note']=sprintf('Ticket Updated by %s', $thisstaff->getName());
+            $vars['note']=sprintf('Workorder Updated by %s', $thisstaff->getName());
 
-        $this->logNote('Ticket Updated', $vars['note'], $thisstaff);
+        $this->logNote('Workorder Updated', $vars['note'], $thisstaff);
         $this->reload();
 
         // Reselect SLA if transient
@@ -1950,9 +1950,9 @@ class Ticket {
                     && ($openTickets=$client->getNumOpenTickets())
                     && ($openTickets>=$cfg->getMaxOpenTickets()) ) {
 
-                $errors['err']="You've reached the maximum open tickets allowed.";
-                $ost->logWarning('Ticket denied -'.$vars['email'],
-                        sprintf('Max open tickets (%d) reached for %s ',
+                $errors['err']="You've reached the maximum open workorders allowed.";
+                $ost->logWarning('Workorder denied -'.$vars['email'],
+                        sprintf('Max open workorders (%d) reached for %s ',
                             $cfg->getMaxOpenTickets(), $vars['email']));
 
                 return 0;
@@ -1993,10 +1993,10 @@ class Ticket {
         // Make sure email contents should not be rejected
         if($ticket_filter
                 && ($filter=$ticket_filter->shouldReject())) {
-            $errors['err']='Ticket denied. Error #403';
+            $errors['err']='Workorder denied. Error #403';
             $errors['errno'] = 403;
-            $ost->logWarning('Ticket denied',
-                    sprintf('Ticket rejected ( %s) by filter "%s"',
+            $ost->logWarning('Workorder denied',
+                    sprintf('Workorder rejected ( %s) by filter "%s"',
                         $vars['email'], $filter->getName()));
 
             return 0;
@@ -2240,9 +2240,9 @@ class Ticket {
         if($vars['assignId'] && $thisstaff->canAssignTickets()) { //Assign ticket to staff or team.
             $ticket->assign($vars['assignId'], $vars['note']);
         } elseif($vars['note']) { //Not assigned...save optional note if any
-            $ticket->logNote('New Ticket', $vars['note'], $thisstaff, false);
+            $ticket->logNote('New Workorder', $vars['note'], $thisstaff, false);
         } else { //Not assignment and no internal note - log activity
-            $ticket->logActivity('New Ticket by Staff','Ticket created by staff -'.$thisstaff->getName());
+            $ticket->logActivity('New Workorder by Staff','Workorder created by staff -'.$thisstaff->getName());
         }
 
         $ticket->reload();
@@ -2310,7 +2310,7 @@ class Ticket {
         if(($res=db_query($sql)) && db_num_rows($res)) {
             while(list($id)=db_fetch_row($res)) {
                 if(($ticket=Ticket::lookup($id)) && $ticket->markOverdue())
-                    $ticket->logActivity('Ticket Marked Overdue', 'Ticket flagged as overdue by the system.');
+                    $ticket->logActivity('Workorder Marked Overdue', 'Workorder flagged as overdue by the system.');
             }
         } else {
             //TODO: Trigger escalation on already overdue tickets - make sure last overdue event > grace_period.

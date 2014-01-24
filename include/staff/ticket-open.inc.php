@@ -7,7 +7,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
  <?php csrf_token(); ?>
  <input type="hidden" name="do" value="create">
  <input type="hidden" name="a" value="open">
- <h2>Open New Ticket</h2>
+ <h2>Open New Workorder</h2>
  <table class="form_table fixed" width="940" border="0" cellspacing="0" cellpadding="2">
     <thead>
     <!-- This looks empty - but beware, with fixed table layout, the user
@@ -17,7 +17,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
         <tr><td></td><td></td></tr>
         <tr>
             <th colspan="2">
-                <h4>New Ticket</h4>
+                <h4>New Workorder</h4>
             </th>
         </tr>
     </thead>
@@ -81,7 +81,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
         <?php
         if($cfg->notifyONNewStaffTicket()) {  ?>
         <tr>
-            <td width="160">Ticket Notice:</td>
+            <td width="160">Workorder Notice:</td>
             <td>
             <input type="checkbox" name="alertuser" <?php echo (!$errors || $info['alertuser'])? 'checked="checked"': ''; ?>>Send alert to user.
             </td>
@@ -92,12 +92,12 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
     <tbody>
         <tr>
             <th colspan="2">
-                <em><strong>Ticket Information &amp; Options</strong>:</em>
+                <em><strong>Workorder Information &amp; Options</strong>:</em>
             </th>
         </tr>
         <tr>
             <td width="160" class="required">
-                Ticket Source:
+                Workorder Source:
             </td>
             <td>
                 <select name="source">
@@ -265,7 +265,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
             } ?>
                 <textarea class="richtext ifhtml draft draft-delete"
                     data-draft-namespace="ticket.staff.response"
-                    placeholder="Intial response for the ticket"
+                    placeholder="Intial response for the workorder"
                     name="response" id="response" cols="21" rows="8"
                     style="width:80%;"><?php echo $info['response']; ?></textarea>
                 <table border="0" cellspacing="0" cellpadding="2" width="100%">
@@ -299,7 +299,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
             <?php
             if($thisstaff->canCloseTickets()) { ?>
                 <tr>
-                    <td width="100">Ticket Status:</td>
+                    <td width="100">Workorder Status:</td>
                     <td>
                         <input type="checkbox" name="ticket_state" value="closed" <?php echo $info['ticket_state']?'checked="checked"':''; ?>>
                         <b>Close On Response</b>&nbsp;<em>(Only applicable if response is entered)</em>

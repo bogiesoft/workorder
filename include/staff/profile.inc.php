@@ -138,7 +138,7 @@ $info['id']=$staff->getId();
                         $y=2;
                    } ?>
                 </select>
-                <em>(Tickets page refresh rate in minutes.)</em>
+                <em>(Workorders page refresh rate in minutes.)</em>
             </td>
         </tr>
         <tr>
@@ -154,7 +154,7 @@ $info['id']=$staff->getId();
                   }
                   ?>
                 </select>
-                <em>(You can change selection on ticket page)</em>
+                <em>(You can change selection on workorder page)</em>
                 &nbsp;<span class="error">&nbsp;<?php echo $errors['default_signature_type']; ?></span>
             </td>
         </tr>
@@ -171,7 +171,7 @@ $info['id']=$staff->getId();
                   }
                   ?>
                 </select>
-                <em>Paper size used when printing tickets to PDF</em>
+                <em>Paper size used when printing workorders to PDF</em>
                 &nbsp;<span class="error">&nbsp;<?php echo $errors['default_paper_size']; ?></span>
             </td>
         </tr>
@@ -179,10 +179,10 @@ $info['id']=$staff->getId();
         //Show an option to show assigned tickets to admins & managers.
         if($staff->isAdmin() || $staff->isManager()){ ?>
         <tr>
-            <td>Show Assigned Tickets:</td>
+            <td>Show Assigned Workorders:</td>
             <td>
                 <input type="checkbox" name="show_assigned_tickets" <?php echo $info['show_assigned_tickets']?'checked="checked"':''; ?>>
-                <em>Show assigned tickets on open queue.</em>
+                <em>Show assigned workorders on open queue.</em>
             </td>
         </tr>
         <?php } ?>
@@ -230,7 +230,7 @@ $info['id']=$staff->getId();
             <td colspan=2>
                 <textarea class="richtext no-bar" name="signature" cols="21"
                     rows="5" style="width: 60%;"><?php echo $info['signature']; ?></textarea>
-                <br><em>Signature is made available as a choice, on ticket reply.</em>
+                <br><em>Signature is made available as a choice, on workorder reply.</em>
             </td>
         </tr>
     </tbody>

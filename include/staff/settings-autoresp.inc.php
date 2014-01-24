@@ -14,7 +14,7 @@
     <tbody>
 
         <tr>
-            <td width="160">New Ticket:</td>
+            <td width="160">New Workorder:</td>
             <td>
                 <input type="radio" name="ticket_autoresponder"  value="1"   <?php echo $config['ticket_autoresponder']?'checked="checked"':''; ?> /><b>Enable</b>
                 <input type="radio" name="ticket_autoresponder"  value="0"   <?php echo !$config['ticket_autoresponder']?'checked="checked"':''; ?> />Disable
@@ -23,7 +23,7 @@
             </td>
         </tr>
         <tr>
-            <td width="160">New Ticket by staff:</td>
+            <td width="160">New Workorder by staff:</td>
             <td>
                 <input type="radio" name="ticket_notice_active"  value="1"   <?php echo $config['ticket_notice_active']?'checked="checked"':''; ?> /><b>Enable</b>
                 <input type="radio" name="ticket_notice_active"  value="0"   <?php echo !$config['ticket_notice_active']?'checked="checked"':''; ?> />Disable

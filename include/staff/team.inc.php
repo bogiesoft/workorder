@@ -31,7 +31,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
         <tr>
             <th colspan="2">
                 <h4><?php echo $title; ?></h4>
-                <em><strong>Team Information</strong>: Disabled team won't be availabe for ticket assignment or alerts.</em>
+                <em><strong>Team Information</strong>: Disabled team won't be availabe for workorder assignment or alerts.</em>
             </th>
         </tr>
     </thead>

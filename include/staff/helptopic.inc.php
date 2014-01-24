@@ -88,7 +88,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
             </td>
         </tr>
 
-        <tr><th colspan="2"><em>New ticket options</em></th></tr>
+        <tr><th colspan="2"><em>New workorder options</em></th></tr>
        <tr>
            <td><strong>Custom Form</strong>:</td>
            <td><select name="form_id">
@@ -101,7 +101,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
                    </option>
                <?php } ?>
                </select>
-               <em>Extra information for tickets associated with this help topic</em>
+               <em>Extra information for workorders associated with this help topic</em>
                &nbsp;<span class="error">&nbsp;<?php echo $errors['form_id']; ?></span>
            </td>
        </tr>
@@ -182,7 +182,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
                     }
                     ?>
                 </select>&nbsp;<font class="error"><?php echo $errors['page_id']; ?></font>
-                <em>(Overrides global setting. Applies to web tickets only.)</em>
+                <em>(Overrides global setting. Applies to web workorders only.)</em>
             </td>
         </tr>
         <tr>
@@ -225,11 +225,11 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
         </tr>
         <tr>
             <td width="180">
-                Ticket auto-response:
+                Workorder auto-response:
             </td>
             <td>
                 <input type="checkbox" name="noautoresp" value="1" <?php echo $info['noautoresp']?'checked="checked"':''; ?> >
-                    <strong>Disable</strong> new ticket auto-response for
+                    <strong>Disable</strong> new workorder auto-response for
                     this topic (Overrides Dept. settings).
             </td>
         </tr>

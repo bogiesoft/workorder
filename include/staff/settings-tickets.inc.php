@@ -3,7 +3,7 @@ if(!defined('OSTADMININC') || !$thisstaff || !$thisstaff->isAdmin() || !$config)
 if(!($maxfileuploads=ini_get('max_file_uploads')))
     $maxfileuploads=DEFAULT_MAX_FILE_UPLOADS;
 ?>
-<h2>Ticket Settings and Options</h2>
+<h2>Workorder Settings and Options</h2>
 <form action="settings.php?t=tickets" method="post" id="save">
 <?php csrf_token(); ?>
 <input type="hidden" name="t" value="tickets" >
@@ -11,13 +11,13 @@ if(!($maxfileuploads=ini_get('max_file_uploads')))
     <thead>
         <tr>
             <th colspan="2">
-                <h4>Ticket Settings</h4>
-                <em>Global ticket settings and options.</em>
+                <h4>Workorder Settings</h4>
+                <em>Global workorder settings and options.</em>
             </th>
         </tr>
     </thead>
     <tbody>
-        <tr><td width="220" class="required">Ticket IDs:</td>
+        <tr><td width="220" class="required">Workorder IDs:</td>
             <td>
                 <input type="radio" name="random_ticket_ids"  value="0" <?php echo !$config['random_ticket_ids']?'checked="checked"':''; ?> />
                 Sequential
@@ -62,62 +62,62 @@ if(!($maxfileuploads=ini_get('max_file_uploads')))
              </td>
         </tr>
         <tr>
-            <td>Maximum <b>Open</b> Tickets:</td>
+            <td>Maximum <b>Open</b> Workorders:</td>
             <td>
                 <input type="text" name="max_open_tickets" size=4 value="<?php echo $config['max_open_tickets']; ?>">
                 per email/user. <em>(Helps with spam and email flood control - enter 0 for unlimited)</em>
             </td>
         </tr>
         <tr>
-            <td>Ticket Auto-lock Time:</td>
+            <td>Workorder Auto-lock Time:</td>
             <td>
                 <input type="text" name="autolock_minutes" size=4 value="<?php echo $config['autolock_minutes']; ?>">
                 <font class="error"><?php echo $errors['autolock_minutes']; ?></font>
-                <em>(Minutes to lock a ticket on activity - enter 0 to disable locking)</em>
+                <em>(Minutes to lock a workorder on activity - enter 0 to disable locking)</em>
             </td>
         </tr>
         <tr>
-                    <td width="180">Emailed Tickets Priority:</td>
+                    <td width="180">Emailed Workorders Priority:</td>
                     <td>
                         <input type="checkbox" name="use_email_priority" value="1" <?php echo $config['use_email_priority'] ?'checked="checked"':''; ?> >
                         <em>(Use email priority when available)</em>
             </td>
         </tr>
         <tr>
-            <td width="180">Show Related Tickets:</td>
+            <td width="180">Show Related Workorders:</td>
             <td>
                 <input type="checkbox" name="show_related_tickets" value="1" <?php echo $config['show_related_tickets'] ?'checked="checked"':''; ?> >
-                <em>(Show all related tickets on user login - otherwise access is restricted to one ticket view per login)</em>
+                <em>(Show all related workorders on user login - otherwise access is restricted to one workorder view per login)</em>
             </td>
         </tr>
         <tr>
             <td>Human Verification:</td>
             <td>
                 <input type="checkbox" name="enable_captcha" <?php echo $config['enable_captcha']?'checked="checked"':''; ?>>
-                Enable CAPTCHA on new web tickets.<em>(requires GDLib)</em> &nbsp;<font class="error">&nbsp;<?php echo $errors['enable_captcha']; ?></font><br/>
+                Enable CAPTCHA on new web workorders.<em>(requires GDLib)</em> &nbsp;<font class="error">&nbsp;<?php echo $errors['enable_captcha']; ?></font><br/>
             </td>
         </tr>
         <tr>
-            <td>Claim Tickets:</td>
+            <td>Claim Workorders:</td>
             <td>
                 <input type="checkbox" name="auto_claim_tickets" <?php echo $config['auto_claim_tickets']?'checked="checked"':''; ?>>
-                Auto-assign unassigned tickets on response
+                Auto-assign unassigned workorders on response
                 <!-- Help Tip:
                      Reopened tickets are always assigned to the last respondent -->
             </td>
         </tr>
         <tr>
-            <td>Assigned Tickets:</td>
+            <td>Assigned Workorders:</td>
             <td>
                 <input type="checkbox" name="show_assigned_tickets" <?php echo $config['show_assigned_tickets']?'checked="checked"':''; ?>>
-                Show assigned tickets on open queue.
+                Show assigned workorders on open queue.
             </td>
         </tr>
         <tr>
-            <td>Answered Tickets:</td>
+            <td>Answered Workorders:</td>
             <td>
                 <input type="checkbox" name="show_answered_tickets" <?php echo $config['show_answered_tickets']?'checked="checked"':''; ?>>
-                Show answered tickets on open queue.
+                Show answered workorders on open queue.
             </td>
         </tr>
         <tr>
@@ -128,16 +128,16 @@ if(!($maxfileuploads=ini_get('max_file_uploads')))
             </td>
         </tr>
         <tr>
-            <td>Enable HTML Ticket Thread:</td>
+            <td>Enable HTML Workorder Thread:</td>
             <td>
                 <input type="checkbox" name="enable_html_thread" <?php
                 echo $config['enable_html_thread']?'checked="checked"':''; ?>>
-                Enable rich text in ticket thread and autoresponse emails
+                Enable rich text in workorder thread and autoresponse emails
             </td>
         </tr>
         <tr>
             <th colspan="2">
-                <em><b>Attachments</b>:  Size and max. uploads setting mainly apply to web tickets.</em>
+                <em><b>Attachments</b>:  Size and max. uploads setting mainly apply to web workorders.</em>
             </th>
         </tr>
         <tr>
@@ -235,7 +235,7 @@ if(!($maxfileuploads=ini_get('max_file_uploads')))
             </td>
         </tr>
         <tr>
-            <td width="180">Ticket Response Files:</td>
+            <td width="180">Workorder Response Files:</td>
             <td>
                 <input type="checkbox" name="email_attachments" <?php echo $config['email_attachments']?'checked="checked"':''; ?> >Email attachments to the user
             </td>

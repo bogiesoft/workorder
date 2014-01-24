@@ -133,7 +133,7 @@ endif;
         Are you sure want to <b>disable</b> selected canned responses?
     </p>
     <p class="confirm-action" style="display:none;" id="mark_overdue-confirm">
-        Are you sure want to flag the selected tickets as <font color="red"><b>overdue</b></font>?
+        Are you sure want to flag the selected workorders as <font color="red"><b>overdue</b></font>?
     </p>
     <p class="confirm-action" style="display:none;" id="delete-confirm">
         <font color="red"><strong>Are you sure you want to DELETE selected canned responses?</strong></font>

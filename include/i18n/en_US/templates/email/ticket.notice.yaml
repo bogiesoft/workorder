@@ -1,12 +1,12 @@
 #
 # Email template: ticket.notice.yaml
 #
-# Sent to a user when a staff member creates a ticket on the user's behalf.
+# Sent to a user when a staff member creates a workorder on the user's behalf.
 # This is most commonly performed when user's call in on the phone.
 #
 ---
 notes: |
-    Sent to a user when a staff member creates a ticket on the user's behalf.
+    Sent to a user when a staff member creates a workorder on the user's behalf.
     This is most commonly performed when user's call in on the phone.
 
 subject: |

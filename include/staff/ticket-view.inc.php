@@ -25,9 +25,9 @@ if($ticket->isAssigned() && (
             ($staff && $staff->getId()!=$thisstaff->getId())
          || ($team && !$team->hasMember($thisstaff))
         ))
-    $warn.='&nbsp;&nbsp;<span class="Icon assignedTicket">Ticket is assigned to '.implode('/', $ticket->getAssignees()).'</span>';
+    $warn.='&nbsp;&nbsp;<span class="Icon assignedTicket">Workorder is assigned to '.implode('/', $ticket->getAssignees()).'</span>';
 if(!$errors['err'] && ($lock && $lock->getStaffId()!=$thisstaff->getId()))
-    $errors['err']='This ticket is currently locked by '.$lock->getStaffName();
+    $errors['err']='This workorder is currently locked by '.$lock->getStaffName();
 if(!$errors['err'] && ($emailBanned=TicketFilter::isBanned($ticket->getEmail())))
     $errors['err']='Email is in banlist! Must be removed before any reply/response';
 
@@ -40,7 +40,7 @@ if($ticket->isOverdue())
 <table width="940" cellpadding="2" cellspacing="0" border="0">
     <tr>
         <td width="50%" class="has_bottom_border">
-             <h2><a href="tickets.php?id=<?php echo $ticket->getId(); ?>" title="Reload"><i class="icon-refresh"></i> Ticket #<?php echo $ticket->getExtId(); ?></a></h2>
+             <h2><a href="tickets.php?id=<?php echo $ticket->getId(); ?>" title="Reload"><i class="icon-refresh"></i> ID #<?php echo $ticket->getExtId(); ?></a></h2>
         </td>
         <td width="50%" class="right_align has_bottom_border">
             <?php
@@ -86,13 +86,13 @@ if($ticket->isOverdue())
               <ul>
                 <?php
                  if($thisstaff->canEditTickets()) { ?>
-                    <li><a class="change-user" href="#tickets/<?php echo $ticket->getId(); ?>/change-user"><i class="icon-user"></i> Change Ticket Owner</a></li>
+                    <li><a class="change-user" href="#tickets/<?php echo $ticket->getId(); ?>/change-user"><i class="icon-user"></i> Change Workorder Owner</a></li>
                 <?php
                  }
                 if($ticket->isOpen() && ($dept && $dept->isManager($thisstaff))) {
 
                     if($ticket->isAssigned()) { ?>
-                        <li><a id="ticket-release" href="#release"><i class="icon-user"></i> Release (unassign) Ticket</a></li>
+                        <li><a id="ticket-release" href="#release"><i class="icon-user"></i> Release (unassign) Workorder</a></li>
                     <?php
                     }
 
@@ -166,20 +166,20 @@ if($ticket->isOverdue())
                         ?></span></a>
                         <?php
                         if(($client=$ticket->getClient())) {
-                            echo sprintf('&nbsp;&nbsp;<a href="tickets.php?a=search&ownerId=%d" title="Related Tickets" data-dropdown="#action-dropdown-stats">(<b>%d</b>)</a>',
+                            echo sprintf('&nbsp;&nbsp;<a href="tickets.php?a=search&ownerId=%d" title="Related Workorders" data-dropdown="#action-dropdown-stats">(<b>%d</b>)</a>',
                                     urlencode($ticket->getOwnerId()), $client->getNumTickets());
                         ?>
                             <div id="action-dropdown-stats" class="action-dropdown anchor-right">
                                 <ul>
                                     <?php
                                     if(($open=$client->getNumOpenTickets()))
-                                        echo sprintf('<li><a href="tickets.php?a=search&status=open&ownerId=%s"><i class="icon-folder-open-alt"></i> %d Open Tickets</a></li>',
+                                        echo sprintf('<li><a href="tickets.php?a=search&status=open&ownerId=%s"><i class="icon-folder-open-alt"></i> %d Open Workorders</a></li>',
                                                 $ticket->getOwnerId(), $open);
                                     if(($closed=$client->getNumClosedTickets()))
-                                        echo sprintf('<li><a href="tickets.php?a=search&status=closed&ownerId=%d"><i class="icon-folder-close-alt"></i> %d Closed Tickets</a></li>',
+                                        echo sprintf('<li><a href="tickets.php?a=search&status=closed&ownerId=%d"><i class="icon-folder-close-alt"></i> %d Closed Workorders</a></li>',
                                                 $ticket->getOwnerId(), $closed);
                                     ?>
-                                    <li><a href="tickets.php?a=search&ownerId=<?php echo $ticket->getOwnerId(); ?>"><i class="icon-double-angle-right"></i> All Tickets</a></li>
+                                    <li><a href="tickets.php?a=search&ownerId=<?php echo $ticket->getOwnerId(); ?>"><i class="icon-double-angle-right"></i> All Workorders</a></li>
                                 </u>
                             </div>
                     <?php
@@ -335,7 +335,7 @@ $tcount = $ticket->getThreadCount();
 $tcount+= $ticket->getNumNotes();
 ?>
 <ul id="threads">
-    <li><a class="active" id="toggle_ticket_thread" href="#">Ticket Thread (<?php echo $tcount; ?>)</a></li>
+    <li><a class="active" id="toggle_ticket_thread" href="#">Workorder Thread (<?php echo $tcount; ?>)</a></li>
 </ul>
 <div id="ticket_thread">
     <?php
@@ -387,7 +387,7 @@ $tcount+= $ticket->getNumNotes();
             $msgId=$entry['id'];
        }
     } else {
-        echo '<p>Error fetching ticket thread - get technical help.</p>';
+        echo '<p>Error fetching workorder thread - get technical help.</p>';
     }?>
 </div>
 <div class="clear" style="padding-bottom:10px;"></div>
@@ -414,7 +414,7 @@ $tcount+= $ticket->getNumNotes();
         }
 
         if($thisstaff->canAssignTickets()) { ?>
-        <li><a id="assign_tab" href="#assign"><?php echo $ticket->isAssigned()?'Reassign Ticket':'Assign Ticket'; ?></a></li>
+        <li><a id="assign_tab" href="#assign"><?php echo $ticket->isAssigned()?'Reassign Workorder':'Assign Workorder'; ?></a></li>
         <?php
         } ?>
     </ul>
@@ -523,7 +523,7 @@ $tcount+= $ticket->getNumNotes();
             if($ticket->isClosed() || $thisstaff->canCloseTickets()) { ?>
             <tr>
                 <td width="120">
-                    <label><strong>Ticket Status:</strong></label>
+                    <label><strong>Workorder Status:</strong></label>
                 </td>
                 <td>
                     <?php
@@ -607,7 +607,7 @@ $tcount+= $ticket->getNumNotes();
             <tr><td colspan="2">&nbsp;</td></tr>
             <tr>
                 <td width="120">
-                    <label>Ticket Status:</label>
+                    <label>Workorder Status:</label>
                 </td>
                 <td>
                     <div class="faded"></div>
@@ -616,15 +616,15 @@ $tcount+= $ticket->getNumNotes();
                         <?php
                         $state = $info['state'];
                         if($ticket->isClosed()){
-                            echo sprintf('<option value="open" %s>Reopen Ticket</option>',
+                            echo sprintf('<option value="open" %s>Reopen Workorder</option>',
                                     ($state=='reopen')?'selected="selelected"':'');
                         } else {
                             if($thisstaff->canCloseTickets())
-                                echo sprintf('<option value="closed" %s>Close Ticket</option>',
+                                echo sprintf('<option value="closed" %s>Close Workorder</option>',
                                     ($state=='closed')?'selected="selelected"':'');
 
                             /* Ticket open - states */
-                            echo '<option value="" disabled="disabled">&mdash; Ticket States &mdash;</option>';
+                            echo '<option value="" disabled="disabled">&mdash; Workorder States &mdash;</option>';
 
                             //Answer - state
                             if($ticket->isAnswered())
@@ -646,7 +646,7 @@ $tcount+= $ticket->getNumNotes();
                                         ($state=='notdue')?'selected="selelected"':'');
 
                                 if($ticket->isAssigned())
-                                    echo sprintf('<option value="unassigned" %s>Release (Unassign) Ticket</option>',
+                                    echo sprintf('<option value="unassigned" %s>Release (Unassign) Workorder</option>',
                                         ($state=='unassigned')?'selected="selelected"':'');
                             }
                         }?>
@@ -684,7 +684,7 @@ $tcount+= $ticket->getNumNotes();
                 </td>
                 <td>
                     <?php
-                        echo sprintf('<span class="faded">Ticket is currently in <b>%s</b> department.</span>', $ticket->getDeptName());
+                        echo sprintf('<span class="faded">Workorder is currently in <b>%s</b> department.</span>', $ticket->getDeptName());
                     ?>
                     <br>
                     <select id="deptId" name="deptId">
@@ -747,7 +747,7 @@ $tcount+= $ticket->getNumNotes();
                         <option value="0" selected="selected">&mdash; Select Staff Member OR a Team &mdash;</option>
                         <?php
                         if($ticket->isOpen() && !$ticket->isAssigned())
-                            echo sprintf('<option value="%d">Claim Ticket (comments optional)</option>', $thisstaff->getId());
+                            echo sprintf('<option value="%d">Claim Workorder (comments optional)</option>', $thisstaff->getId());
 
                         $sid=$tid=0;
                         if(($users=Staff::getAvailableStaffMembers())) {
@@ -781,10 +781,10 @@ $tcount+= $ticket->getNumNotes();
                     </select>&nbsp;<span class='error'>*&nbsp;<?php echo $errors['assignId']; ?></span>
                     <?php
                     if($ticket->isAssigned() && $ticket->isOpen()) {
-                        echo sprintf('<div class="faded">Ticket is currently assigned to <b>%s</b></div>',
+                        echo sprintf('<div class="faded">Workorder is currently assigned to <b>%s</b></div>',
                                 $ticket->getAssignee());
                     } elseif ($ticket->isClosed()) { ?>
-                        <div class="faded">Assigning a closed ticket will <b>reopen</b> it!</div>
+                        <div class="faded">Assigning a closed workorder will <b>reopen</b> it!</div>
                     <?php } ?>
                 </td>
             </tr>
@@ -810,7 +810,7 @@ $tcount+= $ticket->getNumNotes();
     } ?>
 </div>
 <div style="display:none;" class="dialog" id="print-options">
-    <h3>Ticket Print Options</h3>
+    <h3>Workorder Print Options</h3>
     <a class="close" href=""><i class="icon-remove-circle"></i></a>
     <hr/>
     <form action="tickets.php?id=<?php echo $ticket->getId(); ?>" method="post" id="print-form" name="print-form">
@@ -851,7 +851,7 @@ $tcount+= $ticket->getNumNotes();
 
 <!-- Added 2014-01-21 Exploration -->
 <div style="display:none;" class="dialog" id="exploration">
-    <h3>Ticket Exploration</h3>
+    <h3>Workorder Exploration</h3>
     <a class="close" href="">&times;</a>
     <hr/>
     <a href="http://<?php if($hostname)
@@ -864,10 +864,10 @@ $tcount+= $ticket->getNumNotes();
 <!-- End Added -->
 
 <div style="display:none;" class="dialog" id="ticket-status">
-    <h3><?php echo sprintf('%s Ticket #%s', ($ticket->isClosed()?'Reopen':'Close'), $ticket->getNumber()); ?></h3>
+    <h3><?php echo sprintf('%s Workorder #%s', ($ticket->isClosed()?'Reopen':'Close'), $ticket->getNumber()); ?></h3>
     <a class="close" href=""><i class="icon-remove-circle"></i></a>
     <hr/>
-    <?php echo sprintf('Are you sure you want to <b>%s</b> this ticket?', $ticket->isClosed()?'REOPEN':'CLOSE'); ?>
+    <?php echo sprintf('Are you sure you want to <b>%s</b> this workorder?', $ticket->isClosed()?'REOPEN':'CLOSE'); ?>
     <form action="tickets.php?id=<?php echo $ticket->getId(); ?>" method="post" id="status-form" name="status-form">
         <?php csrf_token(); ?>
         <input type="hidden" name="id" value="<?php echo $ticket->getId(); ?>">
@@ -899,37 +899,37 @@ $tcount+= $ticket->getNumNotes();
     <a class="close" href=""><i class="icon-remove-circle"></i></a>
     <hr/>
     <p class="confirm-action" style="display:none;" id="claim-confirm">
-        Are you sure want to <b>claim</b> (self assign) this ticket?
+        Are you sure want to <b>claim</b> (self assign) this workorder?
     </p>
     <p class="confirm-action" style="display:none;" id="answered-confirm">
-        Are you sure want to flag the ticket as <b>answered</b>?
+        Are you sure want to flag the workorder as <b>answered</b>?
     </p>
     <p class="confirm-action" style="display:none;" id="unanswered-confirm">
-        Are you sure want to flag the ticket as <b>unanswered</b>?
+        Are you sure want to flag the workorder as <b>unanswered</b>?
     </p>
     <p class="confirm-action" style="display:none;" id="overdue-confirm">
-        Are you sure want to flag the ticket as <font color="red"><b>overdue</b></font>?
+        Are you sure want to flag the workorder as <font color="red"><b>overdue</b></font>?
     </p>
     <p class="confirm-action" style="display:none;" id="banemail-confirm">
         Are you sure want to <b>ban</b> <?php echo $ticket->getEmail(); ?>? <br><br>
-        New tickets from the email address will be auto-rejected.
+        New workorders from the email address will be auto-rejected.
     </p>
     <p class="confirm-action" style="display:none;" id="unbanemail-confirm">
         Are you sure want to <b>remove</b> <?php echo $ticket->getEmail(); ?> from ban list?
     </p>
     <p class="confirm-action" style="display:none;" id="release-confirm">
-        Are you sure want to <b>unassign</b> ticket from <b><?php echo $ticket->getAssigned(); ?></b>?
+        Are you sure want to <b>unassign</b> workorder from <b><?php echo $ticket->getAssigned(); ?></b>?
     </p>
     <p class="confirm-action" style="display:none;" id="changeuser-confirm">
         <span id="msg_warning" style="display:block;vertical-align:top">
         <b><?php echo Format::htmlchars($ticket->getName()); ?></b> &lt;<?php echo $ticket->getEmail(); ?>&gt;
-        <br> will no longer have access to the ticket.
+        <br> will no longer have access to the workorder.
         </span>
-        Are you sure want to <b>change</b> ticket owner to <b><span id="newuser">this guy</span></b>?
+        Are you sure want to <b>change</b> workorder owner to <b><span id="newuser">this guy</span></b>?
     </p>
     <p class="confirm-action" style="display:none;" id="delete-confirm">
-        <font color="red"><strong>Are you sure you want to DELETE this ticket?</strong></font>
-        <br><br>Deleted tickets CANNOT be recovered, including any associated attachments.
+        <font color="red"><strong>Are you sure you want to DELETE this workorder?</strong></font>
+        <br><br>Deleted workorders CANNOT be recovered, including any associated attachments.
     </p>
     <div>Please confirm to continue.</div>
     <form action="tickets.php?id=<?php echo $ticket->getId(); ?>" method="post" id="confirm-form" name="confirm-form">

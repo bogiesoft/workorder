@@ -1,14 +1,14 @@
 #
 # Email template: ticket.overdue.yaml
 #
-# Sent to staff members when a ticket transitions to overdue in the system.
-# Overdue tickets occur based on the ticket's due-date as well as the SLA
+# Sent to staff members when a workorder transitions to overdue in the system.
+# Overdue workorders occur based on the ticket's due-date as well as the SLA
 # defined for the ticket.
 #
 ---
 notes: |
-    Sent to staff members when a ticket transitions to overdue in the system.
-    Overdue tickets occur based on the ticket's due-date as well as the SLA
+    Sent to staff members when a workorder transitions to overdue in the system.
+    Overdue workorders occur based on the ticket's due-date as well as the SLA
     defined for the ticket.
 
 subject: |
@@ -19,7 +19,7 @@ body: |
     seriously overdue.
     <br>
     <br>
-    We should all work hard to guarantee that all tickets are being
+    We should all work hard to guarantee that all workorders are being
     addressed in a timely manner.
     <br>
     <br>
@@ -28,8 +28,8 @@ body: |
     <hr>
     <div>To view or respond to the ticket, please <a
     href="%{ticket.staff_link}"><span style="color: rgb(84, 141, 212);"
-    >login</span></a> to the support ticket system. You're receiving this
-    notice because the ticket is assigned directly to you or to a team or
+    >login</span></a> to the support workorder system. You're receiving this
+    notice because the workorder is assigned directly to you or to a team or
     department of which you're a member.</div>
     <em style="font-size: small">Your friendly <span style="font-size: smaller"
     >(although with limited patience)</span> Customer Support

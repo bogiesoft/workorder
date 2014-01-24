@@ -31,7 +31,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
         <tr>
             <th colspan="2">
                 <h4><?php echo $title; ?></h4>
-                <em>Tickets are marked overdue on grace period violation.</em>
+                <em>Workorders are marked overdue on grace period violation.</em>
             </th>
         </tr>
     </thead>
@@ -71,7 +71,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
             </td>
             <td>
                 <input type="checkbox" name="enable_priority_escalation" value="1" <?php echo $info['enable_priority_escalation']?'checked="checked"':''; ?> >
-                    <strong>Enable</strong> priority escalation on overdue tickets.
+                    <strong>Enable</strong> priority escalation on overdue workorders.
             </td>
         </tr>
         <tr>
@@ -80,13 +80,13 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
             </td>
             <td>
                 <input type="checkbox" name="transient" value="1" <?php echo $info['transient']?'checked="checked"':''; ?> >
-                SLA can be overridden on ticket transfer or help topic
+                SLA can be overridden on workorder transfer or help topic
                 change
             </td>
         </tr>
         <tr>
             <td width="180">
-                Ticket Overdue Alerts:
+                Workorder Overdue Alerts:
             </td>
             <td>
                 <input type="checkbox" name="disable_overdue_alerts" value="1" <?php echo $info['disable_overdue_alerts']?'checked="checked"':''; ?> >

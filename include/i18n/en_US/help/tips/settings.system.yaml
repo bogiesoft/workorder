@@ -36,7 +36,7 @@ helpdesk_name:
 default_dept:
     title: Default Department
     content: >
-        Determines the default department for tickets submitted that do not
+        Determines the default department for workorders submitted that do not
         have a department auto-assigned by help topic or incoming email
     links:
       - title: Manage Departments
@@ -45,7 +45,7 @@ default_dept:
 page_size:
     title: Default Page Size
     content: >
-        This determines the number of tickets per page on the ticket view
+        This determines the number of workorders per page on the workorder view
         (Staff Panel &gt; Tickets). This can be defined in the
         "My Preferences" for each staff member
 
@@ -53,7 +53,7 @@ log_level:
     title: Default Log Level
     content: >
         Determines the level of issues that will be saved in the system log
-        including, excess log-ins, denied tickets, etc.
+        including, excess log-ins, denied workorders, etc.
 
 log_purge:
     title: Purge Logs

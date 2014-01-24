@@ -28,7 +28,7 @@ require(STAFFINC_DIR.'header.inc.php');
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
 <link rel="stylesheet" type="text/css" href="css/dashboard.css"/>
 
-<h2>Ticket Activity</h2>
+<h2>Workorder Activity</h2>
 <p>Select the starting time and period for the system activity graph</p>
 <form class="well form-inline" id="timeframe-form">
     <label>
@@ -57,7 +57,7 @@ require(STAFFINC_DIR.'header.inc.php');
 
 <hr/>
 <h2>Statistics</h2>
-<p>Statistics of tickets organized by department, help topic, and staff.</p>
+<p>Statistics of workorders organized by department, help topic, and staff.</p>
 <ul class="nav nav-tabs" id="tabular-navigation"></ul>
 
 <div id="table-here"></div>

@@ -480,7 +480,7 @@ class MailFetcher {
 	    //Is the email address banned?
         if($mailinfo['email'] && TicketFilter::isBanned($mailinfo['email'])) {
 	        //We need to let admin know...
-            $ost->logWarning('Ticket denied', 'Banned email - '.$mailinfo['email'], false);
+            $ost->logWarning('Workorder denied', 'Banned email - '.$mailinfo['email'], false);
 	        return true; //Report success (moved or delete)
         }
 

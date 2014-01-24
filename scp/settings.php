@@ -19,7 +19,7 @@ $settingOptions=array(
     'system' =>
         array('System Settings', 'settings.system'),
     'tickets' =>
-        array('Ticket Settings and Options', 'settings.ticket'),
+        array('Workorder Settings and Options', 'settings.ticket'),
     'emails' =>
         array('Email Settings', 'settings.email'),
     'pages' =>

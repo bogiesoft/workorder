@@ -92,7 +92,7 @@ class TicketApiController extends ApiController {
         }
 
         if(!$ticket)
-            return $this->exerr(500, "Unable to create new ticket: unknown error");
+            return $this->exerr(500, "Unable to create new workorder: unknown error");
 
         $this->response(201, $ticket->getExtId());
     }
@@ -125,11 +125,11 @@ class TicketApiController extends ApiController {
             else
                 return $this->exerr(
                         400,
-                        "Unable to create new ticket: validation errors:\n"
+                        "Unable to create new workorder: validation errors:\n"
                         .Format::array_implode(": ", "\n", $errors)
                         );
         } elseif (!$ticket) {
-            return $this->exerr(500, "Unable to create new ticket: unknown error");
+            return $this->exerr(500, "Unable to create new workorder: unknown error");
         }
 
         # Save dynamic form

@@ -16,7 +16,7 @@
 new_ticket:
     title: New Ticket Alert
     content: >
-        Alert sent out to staff members when new tickets are created in the
+        Alert sent out to staff members when new workorders are created in the
         system.
     links:
       - title: Default New Ticket Alert Template
@@ -42,7 +42,7 @@ new_activity:
 assign_alert:
     title: Alert on Assignment
     content: >
-        Alert sent out to staff on ticket assignment
+        Alert sent out to staff on workorder assignment
     links:
       - title: Default Ticket Assignment Alert Template
         href: /scp/templates.php?default_for=assigned.alert
@@ -50,7 +50,7 @@ assign_alert:
 transfer_alert:
     title: Alert on Transfer
     content: >
-        Alert sent out to staff of the target department on ticket transfer
+        Alert sent out to staff of the target department on workorder transfer
     links:
       - title: Default Ticket Transfer Alert Template
         href: /scp/templates.php?default_for=transfer.alert
@@ -58,7 +58,7 @@ transfer_alert:
 stale_alert:
     title: Alert on Stale Ticket
     content: >
-        Alert sent out when a ticket becomes overdue - admin email gets an
+        Alert sent out when a workorder becomes overdue - admin email gets an
         alert by default
     links:
       - title: Default Stale Ticket Alert Template

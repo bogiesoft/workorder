@@ -4,7 +4,7 @@
 ---
 - title: What is osTicket (sample)?
   response: |
-    osTicket is a widely-used open source support ticket system, an
+    osTicket is a widely-used open source support workorder system, an
     attractive alternative to higher-cost and complex customer support
     systems - simple, lightweight, reliable, open source, web-based and easy
     to setup and use.
@@ -20,6 +20,6 @@
     Hi %{ticket.name.first},
     <br>
     <br>
-    Your ticket #%{ticket.number} created on %{ticket.create_date} is in
+    Your workorder #%{ticket.number} created on %{ticket.create_date} is in
     %{ticket.dept.name} department.
   notes: |

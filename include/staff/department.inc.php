@@ -158,17 +158,17 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
         </tr>
         <tr>
             <th colspan="2">
-                <em><strong>Auto Response Settings</strong>: Override global auto-response settings for tickets routed to the Dept.</em>
+                <em><strong>Auto Response Settings</strong>: Override global auto-response settings for workorders routed to the Dept.</em>
             </th>
         </tr>
         <tr>
             <td width="180">
-                New Ticket:
+                New Workorder:
             </td>
             <td>
                 <input type="checkbox" name="ticket_auto_response" value="0" <?php echo !$info['ticket_auto_response']?'checked="checked"':''; ?> >
 
-                <strong>Disable</strong> new ticket auto-response for this Dept.
+                <strong>Disable</strong> new workorder auto-response for this Dept.
             </td>
         </tr>
         <tr>
@@ -237,7 +237,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
             <td colspan=2>
                 <textarea class="richtext no-bar" name="signature" cols="21"
                     rows="5" style="width: 60%;"><?php echo $info['signature']; ?></textarea>
-                <br><em>Signature is made available as a choice, for public departments, on ticket reply.</em>
+                <br><em>Signature is made available as a choice, for public departments, on workorder reply.</em>
             </td>
         </tr>
     </tbody>

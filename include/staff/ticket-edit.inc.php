@@ -11,7 +11,7 @@ if ($_POST)
  <input type="hidden" name="do" value="update">
  <input type="hidden" name="a" value="edit">
  <input type="hidden" name="id" value="<?php echo $ticket->getId(); ?>">
- <h2>Update Ticket #<?php echo $ticket->getExtId(); ?></h2>
+ <h2>Update Workorder #<?php echo $ticket->getExtId(); ?></h2>
  <table class="form_table" width="940" border="0" cellspacing="0" cellpadding="2">
     <tbody>
         <tr>
@@ -53,12 +53,12 @@ if ($_POST)
     <tbody>
         <tr>
             <th colspan="2">
-                <em><strong>Ticket Information</strong>: Due date overrides SLA's grace period.</em>
+                <em><strong>Workorder Information</strong>: Due date overrides SLA's grace period.</em>
             </th>
         </tr>
         <tr>
             <td width="160" class="required">
-                Ticket Source:
+                Workorder Source:
             </td>
             <td>
                 <select name="source">
@@ -138,7 +138,7 @@ if ($_POST)
         <tbody>
         <tr>
             <th colspan="2">
-                <em><strong>Internal Note</strong>: Reason for editing the ticket (required) <font class="error">&nbsp;<?php echo $errors['note'];?></font></em>
+                <em><strong>Internal Note</strong>: Reason for editing the workorder (required) <font class="error">&nbsp;<?php echo $errors['note'];?></font></em>
             </th>
         </tr>
         <tr>

@@ -60,20 +60,20 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
                 <em><strong>Group Permissions</strong>: Applies to all group members&nbsp;</em>
             </th>
         </tr>
-        <tr><td>Can <b>Create</b> Tickets</td>
+        <tr><td>Can <b>Create</b> Workorders</td>
             <td>
                 <input type="radio" name="can_create_tickets"  value="1"   <?php echo $info['can_create_tickets']?'checked="checked"':''; ?> />Yes
                 &nbsp;&nbsp;
                 <input type="radio" name="can_create_tickets"  value="0"   <?php echo !$info['can_create_tickets']?'checked="checked"':''; ?> />No
-                &nbsp;&nbsp;<i>Ability to open tickets on behalf of clients.</i>
+                &nbsp;&nbsp;<i>Ability to open workorders on behalf of clients.</i>
             </td>
         </tr>
-        <tr><td>Can <b>Edit</b> Tickets</td>
+        <tr><td>Can <b>Edit</b> Workorders</td>
             <td>
                 <input type="radio" name="can_edit_tickets"  value="1"   <?php echo $info['can_edit_tickets']?'checked="checked"':''; ?> />Yes
                 &nbsp;&nbsp;
                 <input type="radio" name="can_edit_tickets"  value="0"   <?php echo !$info['can_edit_tickets']?'checked="checked"':''; ?> />No
-                &nbsp;&nbsp;<i>Ability to edit tickets.</i>
+                &nbsp;&nbsp;<i>Ability to edit workorders.</i>
             </td>
         </tr>
         <tr><td>Can <b>Post Reply</b></td>
@@ -81,39 +81,39 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
                 <input type="radio" name="can_post_ticket_reply"  value="1"   <?php echo $info['can_post_ticket_reply']?'checked="checked"':''; ?> />Yes
                 &nbsp;&nbsp;
                 <input type="radio" name="can_post_ticket_reply"  value="0"   <?php echo !$info['can_post_ticket_reply']?'checked="checked"':''; ?> />No
-                &nbsp;&nbsp;<i>Ability to post a ticket reply.</i>
+                &nbsp;&nbsp;<i>Ability to post a workorder reply.</i>
             </td>
         </tr>
-        <tr><td>Can <b>Close</b> Tickets</td>
+        <tr><td>Can <b>Close</b> Workorders</td>
             <td>
                 <input type="radio" name="can_close_tickets"  value="1" <?php echo $info['can_close_tickets']?'checked="checked"':''; ?> />Yes
                 &nbsp;&nbsp;
                 <input type="radio" name="can_close_tickets"  value="0" <?php echo !$info['can_close_tickets']?'checked="checked"':''; ?> />No
-                &nbsp;&nbsp;<i>Ability to close tickets. Staff can still post a response.</i>
+                &nbsp;&nbsp;<i>Ability to close workorders. Staff can still post a response.</i>
             </td>
         </tr>
-        <tr><td>Can <b>Assign</b> Tickets</td>
+        <tr><td>Can <b>Assign</b> Workorders</td>
             <td>
                 <input type="radio" name="can_assign_tickets"  value="1" <?php echo $info['can_assign_tickets']?'checked="checked"':''; ?> />Yes
                 &nbsp;&nbsp;
                 <input type="radio" name="can_assign_tickets"  value="0" <?php echo !$info['can_assign_tickets']?'checked="checked"':''; ?> />No
-                &nbsp;&nbsp;<i>Ability to assign tickets to staff members.</i>
+                &nbsp;&nbsp;<i>Ability to assign workorders to staff members.</i>
             </td>
         </tr>
-        <tr><td>Can <b>Transfer</b> Tickets</td>
+        <tr><td>Can <b>Transfer</b> Workorders</td>
             <td>
                 <input type="radio" name="can_transfer_tickets"  value="1" <?php echo $info['can_transfer_tickets']?'checked="checked"':''; ?> />Yes
                 &nbsp;&nbsp;
                 <input type="radio" name="can_transfer_tickets"  value="0" <?php echo !$info['can_transfer_tickets']?'checked="checked"':''; ?> />No
-                &nbsp;&nbsp;<i>Ability to transfer tickets between departments.</i>
+                &nbsp;&nbsp;<i>Ability to transfer workorders between departments.</i>
             </td>
         </tr>
-        <tr><td>Can <b>Delete</b> Tickets</td>
+        <tr><td>Can <b>Delete</b> Workorders</td>
             <td>
                 <input type="radio" name="can_delete_tickets"  value="1"   <?php echo $info['can_delete_tickets']?'checked="checked"':''; ?> />Yes
                 &nbsp;&nbsp;
                 <input type="radio" name="can_delete_tickets"  value="0"   <?php echo !$info['can_delete_tickets']?'checked="checked"':''; ?> />No
-                &nbsp;&nbsp;<i>Ability to delete tickets (Deleted tickets can't be recovered!)</i>
+                &nbsp;&nbsp;<i>Ability to delete workorders (Deleted workorders can't be recovered!)</i>
             </td>
         </tr>
         <tr><td>Can Ban Emails</td>
@@ -121,7 +121,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
                 <input type="radio" name="can_ban_emails"  value="1" <?php echo $info['can_ban_emails']?'checked="checked"':''; ?> />Yes
                 &nbsp;&nbsp;
                 <input type="radio" name="can_ban_emails"  value="0" <?php echo !$info['can_ban_emails']?'checked="checked"':''; ?> />No
-                &nbsp;&nbsp;<i>Ability to add/remove emails from banlist via ticket interface.</i>
+                &nbsp;&nbsp;<i>Ability to add/remove emails from banlist via workorder interface.</i>
             </td>
         </tr>
         <tr><td>Can Manage Premade</td>

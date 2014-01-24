@@ -256,7 +256,7 @@ class TicketsAjaxAPI extends AjaxController {
                 'advsid='.$uid
             );
         } else {
-            $result['fail']='No tickets found matching your search criteria.';
+            $result['fail']='No workorders found matching your search criteria.';
         }
 
         return $this->json_encode($result);
@@ -333,14 +333,14 @@ class TicketsAjaxAPI extends AjaxController {
         global $thisstaff;
 
         if(!$thisstaff || !($ticket=Ticket::lookup($tid)) || !$ticket->checkStaffAccess($thisstaff))
-            Http::response(404, 'No such ticket');
+            Http::response(404, 'No such workorder');
 
         $staff=$ticket->getStaff();
         $lock=$ticket->getLock();
         $error=$msg=$warn=null;
 
         if($lock && $lock->getStaffId()==$thisstaff->getId())
-            $warn.='&nbsp;<span class="Icon lockedTicket">Ticket is locked by '.$lock->getStaffName().'</span>';
+            $warn.='&nbsp;<span class="Icon lockedTicket">Workorder is locked by '.$lock->getStaffName().'</span>';
         elseif($ticket->isOverdue())
             $warn.='&nbsp;<span class="Icon overdueTicket">Marked overdue!</span>';
 
@@ -368,7 +368,7 @@ class TicketsAjaxAPI extends AjaxController {
 
         echo sprintf('
                 <tr>
-                    <th width="100">Ticket State:</th>
+                    <th width="100">Workorder State:</th>
                     <td>%s</td>
                 </tr>
                 <tr>
@@ -442,7 +442,7 @@ class TicketsAjaxAPI extends AjaxController {
         $options[]=array('action'=>'Post Note','url'=>"tickets.php?id=$tid#note");
 
         if($thisstaff->canEditTickets())
-            $options[]=array('action'=>'Edit Ticket','url'=>"tickets.php?id=$tid&a=edit");
+            $options[]=array('action'=>'Edit Workorder','url'=>"tickets.php?id=$tid&a=edit");
 
         if($options) {
             echo '<ul class="tip_menu">';
@@ -464,7 +464,7 @@ class TicketsAjaxAPI extends AjaxController {
         if(!$thisstaff
                 || !($ticket=Ticket::lookup($tid))
                 || !$ticket->checkStaffAccess($thisstaff))
-            Http::response(404, 'No such ticket');
+            Http::response(404, 'No such workorder');
 
 
         if(!($user = $ticket->getOwner()))
@@ -472,7 +472,7 @@ class TicketsAjaxAPI extends AjaxController {
 
 
         $info = array(
-            'title' => sprintf('Ticket #%s: %s', $ticket->getNumber(),
+            'title' => sprintf('Workorder #%s: %s', $ticket->getNumber(),
                 Format::htmlchars($user->getName()))
             );
 
@@ -492,7 +492,7 @@ class TicketsAjaxAPI extends AjaxController {
                 || !($ticket=Ticket::lookup($tid))
                 || !$ticket->checkStaffAccess($thisstaff)
                 || ! ($user = $ticket->getOwner()))
-            Http::response(404, 'No such ticket/user');
+            Http::response(404, 'No such workorder/user');
 
         $errors = array();
         if($user->updateInfo($_POST, $errors))
@@ -501,7 +501,7 @@ class TicketsAjaxAPI extends AjaxController {
         $forms = $user->getForms();
 
         $info = array(
-            'title' => sprintf('Ticket #%s: %s', $ticket->getNumber(),
+            'title' => sprintf('Workorder #%s: %s', $ticket->getNumber(),
                 Format::htmlchars($user->getName()))
             );
 
@@ -518,13 +518,13 @@ class TicketsAjaxAPI extends AjaxController {
         if(!$thisstaff
                 || !($ticket=Ticket::lookup($tid))
                 || !$ticket->checkStaffAccess($thisstaff))
-            Http::response(404, 'No such ticket');
+            Http::response(404, 'No such workorder');
 
 
         $user = $ticket->getOwner();
 
         $info = array(
-                'title' => sprintf('Change user for ticket #%s', $ticket->getNumber())
+                'title' => sprintf('Change user for workorder #%s', $ticket->getNumber())
                 );
 
         ob_start();

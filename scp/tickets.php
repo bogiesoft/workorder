@@ -28,7 +28,7 @@ $ticket = $user = null; //clean start.
 //LOCKDOWN...See if the id provided is actually valid and if the user has access.
 if($_REQUEST['id']) {
     if(!($ticket=Ticket::lookup($_REQUEST['id'])))
-         $errors['err']='Unknown or invalid ticket ID';
+         $errors['err']='Unknown or invalid workorder ID';
     elseif(!$ticket->checkStaffAccess($thisstaff)) {
         $errors['err']='Access denied. Contact admin if you believe this is in error';
         $ticket=null; //Clear ticket obj.
@@ -57,7 +57,7 @@ if($_POST && !$errors):
                     $errors['response']='Response required';
                 //Use locks to avoid double replies
                 if($lock && $lock->getStaffId()!=$thisstaff->getId())
-                    $errors['err']='Action Denied. Ticket is locked by someone else!';
+                    $errors['err']='Action Denied. Workorder is locked by someone else!';
 
                 //Make sure the email is not banned
                 if(!$errors['err'] && TicketFilter::isBanned($ticket->getEmail()))
@@ -90,14 +90,14 @@ if($_POST && !$errors):
         case 'transfer': /** Transfer ticket **/
             //Check permission
             if(!$thisstaff->canTransferTickets())
-                $errors['err']=$errors['transfer'] = 'Action Denied. You are not allowed to transfer tickets.';
+                $errors['err']=$errors['transfer'] = 'Action Denied. You are not allowed to transfer workorders.';
             else {
 
                 //Check target dept.
                 if(!$_POST['deptId'])
                     $errors['deptId'] = 'Select department';
                 elseif($_POST['deptId']==$ticket->getDeptId())
-                    $errors['deptId'] = 'Ticket already in the department';
+                    $errors['deptId'] = 'Workorder already in the department';
                 elseif(!($dept=Dept::lookup($_POST['deptId'])))
                     $errors['deptId'] = 'Unknown or invalid department';
 
@@ -109,13 +109,13 @@ if($_POST && !$errors):
 
                 //If no errors - them attempt the transfer.
                 if(!$errors && $ticket->transfer($_POST['deptId'], $_POST['transfer_comments'])) {
-                    $msg = 'Ticket transferred successfully to '.$ticket->getDeptName();
+                    $msg = 'Workorder transferred successfully to '.$ticket->getDeptName();
                     //Check to make sure the staff still has access to the ticket
                     if(!$ticket->checkStaffAccess($thisstaff))
                         $ticket=null;
 
                 } elseif(!$errors['transfer']) {
-                    $errors['err'] = 'Unable to complete the ticket transfer';
+                    $errors['err'] = 'Unable to complete the workorder transfer';
                     $errors['transfer']='Correct the error(s) below and try again!';
                 }
             }
@@ -123,7 +123,7 @@ if($_POST && !$errors):
         case 'assign':
 
              if(!$thisstaff->canAssignTickets())
-                 $errors['err']=$errors['assign'] = 'Action Denied. You are not allowed to assign/reassign tickets.';
+                 $errors['err']=$errors['assign'] = 'Action Denied. You are not allowed to assign/reassign workorders.';
              else {
 
                  $id = preg_replace("/[^0-9]/", "",$_POST['assignId']);
@@ -135,14 +135,14 @@ if($_POST && !$errors):
                      $errors['assignId']='Invalid assignee ID - get technical support';
                  elseif($ticket->isAssigned()) {
                      if($_POST['assignId'][0]=='s' && $id==$ticket->getStaffId())
-                         $errors['assignId']='Ticket already assigned to the staff.';
+                         $errors['assignId']='Workorder already assigned to the staff.';
                      elseif($_POST['assignId'][0]=='t' && $id==$ticket->getTeamId())
-                         $errors['assignId']='Ticket already assigned to the team.';
+                         $errors['assignId']='Workorder already assigned to the team.';
                  }
 
                  //Comments are not required on self-assignment (claim)
                  if($claim && !$_POST['assign_comments'])
-                     $_POST['assign_comments'] = 'Ticket claimed by '.$thisstaff->getName();
+                     $_POST['assign_comments'] = 'Workorder claimed by '.$thisstaff->getName();
                  elseif(!$_POST['assign_comments'])
                      $errors['assign_comments'] = 'Assignment comments required';
                  elseif(strlen($_POST['assign_comments'])<5)
@@ -150,14 +150,14 @@ if($_POST && !$errors):
 
                  if(!$errors && $ticket->assign($_POST['assignId'], $_POST['assign_comments'], !$claim)) {
                      if($claim) {
-                         $msg = 'Ticket is NOW assigned to you!';
+                         $msg = 'Workorder is NOW assigned to you!';
                      } else {
-                         $msg='Ticket assigned successfully to '.$ticket->getAssigned();
+                         $msg='Workorder assigned successfully to '.$ticket->getAssigned();
                          TicketLock::removeStaffLocks($thisstaff->getId(), $ticket->getId());
                          $ticket=null;
                      }
                  } elseif(!$errors['assign']) {
-                     $errors['err'] = 'Unable to complete the ticket assignment';
+                     $errors['err'] = 'Unable to complete the workorder assignment';
                      $errors['assign'] = 'Correct the error(s) below and try again!';
                  }
              }
@@ -166,7 +166,7 @@ if($_POST && !$errors):
             //Make sure the staff can set desired state
             if($_POST['state']) {
                 if($_POST['state']=='closed' && !$thisstaff->canCloseTickets())
-                    $errors['state'] = "You don't have permission to close tickets";
+                    $errors['state'] = "You don't have permission to close workorders";
                 elseif(in_array($_POST['state'], array('overdue', 'notdue', 'unassigned'))
                         && (!($dept=$ticket->getDept()) || !$dept->isManager($thisstaff)))
                     $errors['state'] = "You don't have permission to set the state";
@@ -202,9 +202,9 @@ if($_POST && !$errors):
                 if (!$form->isValid())
                     $errors = array_merge($errors, $form->errors());
             if(!$ticket || !$thisstaff->canEditTickets())
-                $errors['err']='Permission Denied. You are not allowed to edit tickets';
+                $errors['err']='Permission Denied. You are not allowed to edit workorders';
             elseif($ticket->update($_POST,$errors)) {
-                $msg='Ticket updated successfully';
+                $msg='Workorder updated successfully';
                 $_REQUEST['a'] = null; //Clear edit action - going back to view.
                 //Check to make sure the staff STILL has access post-update (e.g dept change).
                 foreach ($forms as $f) $f->save();
@@ -218,101 +218,101 @@ if($_POST && !$errors):
             switch(strtolower($_POST['do'])):
                 case 'close':
                     if(!$thisstaff->canCloseTickets()) {
-                        $errors['err'] = 'Permission Denied. You are not allowed to close tickets.';
+                        $errors['err'] = 'Permission Denied. You are not allowed to close workorders.';
                     } elseif($ticket->isClosed()) {
-                        $errors['err'] = 'Ticket is already closed!';
+                        $errors['err'] = 'Workoder is already closed!';
                     } elseif($ticket->close()) {
                         $msg='Ticket #'.$ticket->getExtId().' status set to CLOSED';
                         //Log internal note
                         if($_POST['ticket_status_notes'])
                             $note = $_POST['ticket_status_notes'];
                         else
-                            $note='Ticket closed (without comments)';
+                            $note='Workorder closed (without comments)';
 
-                        $ticket->logNote('Ticket Closed', $note, $thisstaff);
+                        $ticket->logNote('Workorder Closed', $note, $thisstaff);
 
                         //Going back to main listing.
                         TicketLock::removeStaffLocks($thisstaff->getId(), $ticket->getId());
                         $page=$ticket=null;
 
                     } else {
-                        $errors['err']='Problems closing the ticket. Try again';
+                        $errors['err']='Problems closing the workorder. Try again';
                     }
                     break;
                 case 'reopen':
                     //if staff can close or create tickets ...then assume they can reopen.
                     if(!$thisstaff->canCloseTickets() && !$thisstaff->canCreateTickets()) {
-                        $errors['err']='Permission Denied. You are not allowed to reopen tickets.';
+                        $errors['err']='Permission Denied. You are not allowed to reopen workorders.';
                     } elseif($ticket->isOpen()) {
-                        $errors['err'] = 'Ticket is already open!';
+                        $errors['err'] = 'Workorder is already open!';
                     } elseif($ticket->reopen()) {
-                        $msg='Ticket REOPENED';
+                        $msg='Workorder REOPENED';
 
                         if($_POST['ticket_status_notes'])
                             $note = $_POST['ticket_status_notes'];
                         else
-                            $note='Ticket reopened (without comments)';
+                            $note='Workorder reopened (without comments)';
 
-                        $ticket->logNote('Ticket Reopened', $note, $thisstaff);
+                        $ticket->logNote('Workorder Reopened', $note, $thisstaff);
 
                     } else {
-                        $errors['err']='Problems reopening the ticket. Try again';
+                        $errors['err']='Problems reopening the workorder. Try again';
                     }
                     break;
                 case 'release':
                     if(!$ticket->isAssigned() || !($assigned=$ticket->getAssigned())) {
-                        $errors['err'] = 'Ticket is not assigned!';
+                        $errors['err'] = 'Workorder is not assigned!';
                     } elseif($ticket->release()) {
-                        $msg='Ticket released (unassigned) from '.$assigned;
-                        $ticket->logActivity('Ticket unassigned',$msg.' by '.$thisstaff->getName());
+                        $msg='Workorder released (unassigned) from '.$assigned;
+                        $ticket->logActivity('Workorder unassigned',$msg.' by '.$thisstaff->getName());
                     } else {
-                        $errors['err'] = 'Problems releasing the ticket. Try again';
+                        $errors['err'] = 'Problems releasing the workorder. Try again';
                     }
                     break;
                 case 'claim':
                     if(!$thisstaff->canAssignTickets()) {
-                        $errors['err'] = 'Permission Denied. You are not allowed to assign/claim tickets.';
+                        $errors['err'] = 'Permission Denied. You are not allowed to assign/claim workorders.';
                     } elseif(!$ticket->isOpen()) {
-                        $errors['err'] = 'Only open tickets can be assigned';
+                        $errors['err'] = 'Only open workorders can be assigned';
                     } elseif($ticket->isAssigned()) {
-                        $errors['err'] = 'Ticket is already assigned to '.$ticket->getAssigned();
-                    } elseif($ticket->assignToStaff($thisstaff->getId(), ('Ticket claimed by '.$thisstaff->getName()), false)) {
-                        $msg = 'Ticket is now assigned to you!';
+                        $errors['err'] = 'Workorder is already assigned to '.$ticket->getAssigned();
+                    } elseif($ticket->assignToStaff($thisstaff->getId(), ('Workorder claimed by '.$thisstaff->getName()), false)) {
+                        $msg = 'Workorder is now assigned to you!';
                     } else {
-                        $errors['err'] = 'Problems assigning the ticket. Try again';
+                        $errors['err'] = 'Problems assigning the workorder. Try again';
                     }
                     break;
                 case 'overdue':
                     $dept = $ticket->getDept();
                     if(!$dept || !$dept->isManager($thisstaff)) {
-                        $errors['err']='Permission Denied. You are not allowed to flag tickets overdue';
+                        $errors['err']='Permission Denied. You are not allowed to flag workorders overdue';
                     } elseif($ticket->markOverdue()) {
-                        $msg='Ticket flagged as overdue';
-                        $ticket->logActivity('Ticket Marked Overdue',($msg.' by '.$thisstaff->getName()));
+                        $msg='Workorder flagged as overdue';
+                        $ticket->logActivity('Workorder Marked Overdue',($msg.' by '.$thisstaff->getName()));
                     } else {
-                        $errors['err']='Problems marking the the ticket overdue. Try again';
+                        $errors['err']='Problems marking the the workorder overdue. Try again';
                     }
                     break;
                 case 'answered':
                     $dept = $ticket->getDept();
                     if(!$dept || !$dept->isManager($thisstaff)) {
-                        $errors['err']='Permission Denied. You are not allowed to flag tickets';
+                        $errors['err']='Permission Denied. You are not allowed to flag workorders';
                     } elseif($ticket->markAnswered()) {
-                        $msg='Ticket flagged as answered';
-                        $ticket->logActivity('Ticket Marked Answered',($msg.' by '.$thisstaff->getName()));
+                        $msg='Workorder flagged as answered';
+                        $ticket->logActivity('Workorder Marked Answered',($msg.' by '.$thisstaff->getName()));
                     } else {
-                        $errors['err']='Problems marking the the ticket answered. Try again';
+                        $errors['err']='Problems marking the the workorder answered. Try again';
                     }
                     break;
                 case 'unanswered':
                     $dept = $ticket->getDept();
                     if(!$dept || !$dept->isManager($thisstaff)) {
-                        $errors['err']='Permission Denied. You are not allowed to flag tickets';
+                        $errors['err']='Permission Denied. You are not allowed to flag workorders';
                     } elseif($ticket->markUnAnswered()) {
-                        $msg='Ticket flagged as unanswered';
-                        $ticket->logActivity('Ticket Marked Unanswered',($msg.' by '.$thisstaff->getName()));
+                        $msg='Workorder flagged as unanswered';
+                        $ticket->logActivity('Workorder Marked Unanswered',($msg.' by '.$thisstaff->getName()));
                     } else {
-                        $errors['err']='Problems marking the the ticket unanswered. Try again';
+                        $errors['err']='Problems marking the the workorder unanswered. Try again';
                     }
                     break;
                 case 'banemail':
@@ -339,28 +339,28 @@ if($_POST && !$errors):
                     break;
                 case 'changeuser':
                     if (!$thisstaff->canEditTickets()) {
-                        $errors['err'] = 'Permission Denied. You are not allowed to EDIT tickets!!';
+                        $errors['err'] = 'Permission Denied. You are not allowed to EDIT workorders!!';
                     } elseif (!$_POST['user_id'] || !($user=User::lookup($_POST['user_id']))) {
                         $errors['err'] = 'Unknown user selected!';
                     } elseif ($ticket->changeOwner($user)) {
-                        $msg = 'Ticket ownership changed to '.$user->getName();
+                        $msg = 'Workorder ownership changed to '.$user->getName();
                     } else {
                         $errors['err'] = 'Unable to change tiket ownership. Try again';
                     }
                     break;
                 case 'delete': // Dude what are you trying to hide? bad customer support??
                     if(!$thisstaff->canDeleteTickets()) {
-                        $errors['err']='Permission Denied. You are not allowed to DELETE tickets!!';
+                        $errors['err']='Permission Denied. You are not allowed to DELETE workorders!!';
                     } elseif($ticket->delete()) {
-                        $msg='Ticket #'.$ticket->getNumber().' deleted successfully';
+                        $msg='Workorder #'.$ticket->getNumber().' deleted successfully';
                         //Log a debug note
-                        $ost->logDebug('Ticket #'.$ticket->getNumber().' deleted',
-                                sprintf('Ticket #%s deleted by %s',
+                        $ost->logDebug('Workorder #'.$ticket->getNumber().' deleted',
+                                sprintf('Workorder #%s deleted by %s',
                                     $ticket->getNumber(), $thisstaff->getName())
                                 );
                         $ticket=null; //clear the object.
                     } else {
-                        $errors['err']='Problems deleting the ticket. Try again';
+                        $errors['err']='Problems deleting the workorder. Try again';
                     }
                     break;
                 default:
@@ -377,68 +377,68 @@ if($_POST && !$errors):
         switch($_POST['a']) {
             case 'mass_process':
                 if(!$thisstaff->canManageTickets())
-                    $errors['err']='You do not have permission to mass manage tickets. Contact admin for such access';
+                    $errors['err']='You do not have permission to mass manage workorders. Contact admin for such access';
                 elseif(!$_POST['tids'] || !is_array($_POST['tids']))
-                    $errors['err']='No tickets selected. You must select at least one ticket.';
+                    $errors['err']='No workorders selected. You must select at least one workorder.';
                 else {
                     $count=count($_POST['tids']);
                     $i = 0;
                     switch(strtolower($_POST['do'])) {
                         case 'reopen':
                             if($thisstaff->canCloseTickets() || $thisstaff->canCreateTickets()) {
-                                $note='Ticket reopened by '.$thisstaff->getName();
+                                $note='Workorder reopened by '.$thisstaff->getName();
                                 foreach($_POST['tids'] as $k=>$v) {
                                     if(($t=Ticket::lookup($v)) && $t->isClosed() && @$t->reopen()) {
                                         $i++;
-                                        $t->logNote('Ticket Reopened', $note, $thisstaff);
+                                        $t->logNote('Workorder Reopened', $note, $thisstaff);
                                     }
                                 }
 
                                 if($i==$count)
-                                    $msg = "Selected tickets ($i) reopened successfully";
+                                    $msg = "Selected workorders ($i) reopened successfully";
                                 elseif($i)
-                                    $warn = "$i of $count selected tickets reopened";
+                                    $warn = "$i of $count selected workorders reopened";
                                 else
-                                    $errors['err'] = 'Unable to reopen selected tickets';
+                                    $errors['err'] = 'Unable to reopen selected workorders';
                             } else {
-                                $errors['err'] = 'You do not have permission to reopen tickets';
+                                $errors['err'] = 'You do not have permission to reopen workorders';
                             }
                             break;
                         case 'close':
                             if($thisstaff->canCloseTickets()) {
-                                $note='Ticket closed without response by '.$thisstaff->getName();
+                                $note='Workorder closed without response by '.$thisstaff->getName();
                                 foreach($_POST['tids'] as $k=>$v) {
                                     if(($t=Ticket::lookup($v)) && $t->isOpen() && @$t->close()) {
                                         $i++;
-                                        $t->logNote('Ticket Closed', $note, $thisstaff);
+                                        $t->logNote('Workorder Closed', $note, $thisstaff);
                                     }
                                 }
 
                                 if($i==$count)
-                                    $msg ="Selected tickets ($i) closed succesfully";
+                                    $msg ="Selected workorders ($i) closed succesfully";
                                 elseif($i)
-                                    $warn = "$i of $count selected tickets closed";
+                                    $warn = "$i of $count selected workorders closed";
                                 else
-                                    $errors['err'] = 'Unable to close selected tickets';
+                                    $errors['err'] = 'Unable to close selected workorders';
                             } else {
-                                $errors['err'] = 'You do not have permission to close tickets';
+                                $errors['err'] = 'You do not have permission to close workorders';
                             }
                             break;
                         case 'mark_overdue':
-                            $note='Ticket flagged as overdue by '.$thisstaff->getName();
+                            $note='Workorder flagged as overdue by '.$thisstaff->getName();
                             foreach($_POST['tids'] as $k=>$v) {
                                 if(($t=Ticket::lookup($v)) && !$t->isOverdue() && $t->markOverdue()) {
                                     $i++;
-                                    $t->logNote('Ticket Marked Overdue', $note, $thisstaff);
+                                    $t->logNote('Workorder Marked Overdue', $note, $thisstaff);
                                 }
                             }
 
                             if($i==$count)
-                                $msg = "Selected tickets ($i) marked overdue";
+                                $msg = "Selected workorders ($i) marked overdue";
                             elseif($i)
-                                $warn = "$i of $count selected tickets marked overdue";
+                                $warn = "$i of $count selected workorders marked overdue";
                             else
-                                $errors['err'] = 'Unable to flag selected tickets as overdue';
+                                $errors['err'] = 'Unable to flag selected workorders as overdue';
                             break;
                         case 'delete':
                             if($thisstaff->canDeleteTickets()) {
@@ -448,20 +448,20 @@ if($_POST && !$errors):
 
                                 //Log a warning
                                 if($i) {
-                                    $log = sprintf('%s (%s) just deleted %d ticket(s)',
+                                    $log = sprintf('%s (%s) just deleted %d workorder(s)',
                                             $thisstaff->getName(), $thisstaff->getUserName(), $i);
-                                    $ost->logWarning('Tickets deleted', $log, false);
+                                    $ost->logWarning('Workorders deleted', $log, false);
 
                                 }
 
                                 if($i==$count)
-                                    $msg = "Selected tickets ($i) deleted successfully";
+                                    $msg = "Selected workorders ($i) deleted successfully";
                                 elseif($i)
-                                    $warn = "$i of $count selected tickets deleted";
+                                    $warn = "$i of $count selected workorders deleted";
                                 else
-                                    $errors['err'] = 'Unable to delete selected tickets';
+                                    $errors['err'] = 'Unable to delete selected workorders';
                             } else {
-                                $errors['err'] = 'You do not have permission to delete tickets';
+                                $errors['err'] = 'You do not have permission to delete workorders';
                             }
                             break;
                         default:
@@ -479,7 +479,7 @@ if($_POST && !$errors):
                     }
                 }
                 if(!$thisstaff || !$thisstaff->canCreateTickets()) {
-                     $errors['err']='You do not have permission to create tickets. Contact admin for such access';
+                     $errors['err']='You do not have permission to create workorders. Contact admin for such access';
                 } else {
                     $vars = $_POST;
                     $vars['uid'] = $user? $user->getId() : 0;
@@ -488,7 +488,7 @@ if($_POST && !$errors):
                         $vars['files'] = AttachmentFile::format($_FILES['attachments']);
 
                     if(($ticket=Ticket::open($vars, $errors))) {
-                        $msg='Ticket created successfully';
+                        $msg='Workorder created successfully';
                         $_REQUEST['a']=null;
                         # Save extra dynamic form(s)
                         if (isset($form)) {
@@ -499,7 +499,7 @@ if($_POST && !$errors):
                             $ticket=null;
                         Draft::deleteForNamespace('ticket.staff%', $thisstaff->getId());
                     } elseif(!$errors['err']) {
-                        $errors['err']='Unable to create the ticket. Correct the error(s) and try again';
+                        $errors['err']='Unable to create the workorder. Correct the error(s) and try again';
                     }
                 }
                 break;
@@ -516,7 +516,7 @@ $stats= $thisstaff->getTicketsStats();
 $nav->setTabActive('tickets');
 if($cfg->showAnsweredTickets()) {
     $nav->addSubMenu(array('desc'=>'Open ('.number_format($stats['open']+$stats['answered']).')',
-                            'title'=>'Open Tickets',
+                            'title'=>'Open Workorders',
                             'href'=>'tickets.php',
                             'iconclass'=>'Ticket'),
                         (!$_REQUEST['status'] || $_REQUEST['status']=='open'));
@@ -524,7 +524,7 @@ if($cfg->showAnsweredTickets()) {
 
     if($stats) {
         $nav->addSubMenu(array('desc'=>'Open ('.number_format($stats['open']).')',
-                               'title'=>'Open Tickets',
+                               'title'=>'Open Workorders',
                                'href'=>'tickets.php',
                                'iconclass'=>'Ticket'),
                             (!$_REQUEST['status'] || $_REQUEST['status']=='open'));
@@ -532,7 +532,7 @@ if($cfg->showAnsweredTickets()) {
 
     if($stats['answered']) {
         $nav->addSubMenu(array('desc'=>'Answered ('.number_format($stats['answered']).')',
-                               'title'=>'Answered Tickets',
+                               'title'=>'Answered Workorders',
                                'href'=>'tickets.php?status=answered',
                                'iconclass'=>'answeredTickets'),
                             ($_REQUEST['status']=='answered'));
@@ -541,10 +541,10 @@ if($cfg->showAnsweredTickets()) {
 
 if($stats['assigned']) {
     if(!$ost->getWarning() && $stats['assigned']>10)
-        $ost->setWarning($stats['assigned'].' tickets assigned to you! Do something about it!');
+        $ost->setWarning($stats['assigned'].' workorders assigned to you! Do something about it!');
 
-    $nav->addSubMenu(array('desc'=>'My Tickets ('.number_format($stats['assigned']).')',
-                           'title'=>'Assigned Tickets',
+    $nav->addSubMenu(array('desc'=>'My Workorders ('.number_format($stats['assigned']).')',
+                           'title'=>'Assigned Workorders',
                            'href'=>'tickets.php?status=assigned',
                            'iconclass'=>'assignedTickets'),
                         ($_REQUEST['status']=='assigned'));
@@ -552,33 +552,33 @@ if($stats['assigned']) {
 
 if($stats['overdue']) {
     $nav->addSubMenu(array('desc'=>'Overdue ('.number_format($stats['overdue']).')',
-                           'title'=>'Stale Tickets',
+                           'title'=>'Stale Workorders',
                            'href'=>'tickets.php?status=overdue',
                            'iconclass'=>'overdueTickets'),
                         ($_REQUEST['status']=='overdue'));
 
     if(!$sysnotice && $stats['overdue']>10)
-        $sysnotice=$stats['overdue'] .' overdue tickets!';
+        $sysnotice=$stats['overdue'] .' overdue workorders!';
 }
 
 if($thisstaff->showAssignedOnly() && $stats['closed']) {
-    $nav->addSubMenu(array('desc'=>'My Closed Tickets ('.number_format($stats['closed']).')',
-                           'title'=>'My Closed Tickets',
+    $nav->addSubMenu(array('desc'=>'My Closed Workorders ('.number_format($stats['closed']).')',
+                           'title'=>'My Closed Workorders',
                            'href'=>'tickets.php?status=closed',
                            'iconclass'=>'closedTickets'),
                         ($_REQUEST['status']=='closed'));
 } else {
 
-    $nav->addSubMenu(array('desc'=>'Closed Tickets ('.number_format($stats['closed']).')',
-                           'title'=>'Closed Tickets',
+    $nav->addSubMenu(array('desc'=>'Closed Workorders ('.number_format($stats['closed']).')',
+                           'title'=>'Closed Workorders',
                            'href'=>'tickets.php?status=closed',
                            'iconclass'=>'closedTickets'),
                         ($_REQUEST['status']=='closed'));
 }
 
 if($thisstaff->canCreateTickets()) {
-    $nav->addSubMenu(array('desc'=>'New Ticket',
-                           'title' => 'Open New Ticket',
+    $nav->addSubMenu(array('desc'=>'New Workorder',
+                           'title' => 'Open New Workorder',
                            'href'=>'tickets.php?a=open',
                            'iconclass'=>'newTicket',
                            'id' => 'new-ticket'),
@@ -588,7 +588,7 @@ if($thisstaff->canCreateTickets()) {
 
 $inc = 'tickets.inc.php';
 if($ticket) {
-    $ost->setPageTitle('Ticket #'.$ticket->getNumber());
+    $ost->setPageTitle('Workorder #'.$ticket->getNumber());
     $nav->setActiveSubMenu(-1);
     $inc = 'ticket-view.inc.php';
     if($_REQUEST['a']=='edit' && $thisstaff->canEditTickets()) {
@@ -597,7 +597,7 @@ if($ticket) {
         // Auto add new fields to the entries
         foreach ($forms as $f) $f->addMissingFields();
     } elseif($_REQUEST['a'] == 'print' && !$ticket->pdfExport($_REQUEST['psize'], $_REQUEST['notes']))
-        $errors['err'] = 'Internal error: Unable to export the ticket to PDF for print.';
+        $errors['err'] = 'Internal error: Unable to export the workorder to PDF for print.';
 } else {
     $inc = 'tickets.inc.php';
     if($_REQUEST['a']=='open' && $thisstaff->canCreateTickets())

@@ -6,12 +6,12 @@
     <thead>
         <tr>
             <th>
-                <h4>Alerts and Notices sent to staff on ticket "events"</h4>
+                <h4>Alerts and Notices sent to staff on workorder "events"</h4>
             </th>
         </tr>
     </thead>
     <tbody>
-        <tr><th><em><b>New Ticket Alert</b>:
+        <tr><th><em><b>New Workorder Alert</b>:
             <i class="help-tip icon-question-sign" href="#new_ticket"></i>
             </em></th></tr>
         <tr>
@@ -87,7 +87,7 @@
               <input type="checkbox" name="note_alert_dept_manager" <?php echo $config['note_alert_dept_manager']?'checked':''; ?>> Department Manager <em>(spammy)</em>
             </td>
         </tr>
-        <tr><th><em><b>Ticket Assignment Alert</b>:
+        <tr><th><em><b>Workorder Assignment Alert</b>:
             <i class="help-tip icon-question-sign" href="#assign_alert"></i>
             </em></th></tr>
         <tr>
@@ -114,7 +114,7 @@
                 Team Members <em>(spammy)</em>
             </td>
         </tr>
-        <tr><th><em><b>Ticket Transfer Alert</b>:
+        <tr><th><em><b>Workorder Transfer Alert</b>:
             <i class="help-tip icon-question-sign" href="#transfer_alert"></i>
             </em></th></tr>
         <tr>
@@ -140,7 +140,7 @@
                 Department Members <em>(spammy)</em>
             </td>
         </tr>
-        <tr><th><em><b>Overdue Ticket Alert</b>:
+        <tr><th><em><b>Overdue Workorder Alert</b>:
             <i class="help-tip icon-question-sign" href="#stale_alert"></i>
             </em></th></tr>
         <tr>

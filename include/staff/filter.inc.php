@@ -27,13 +27,13 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
  <input type="hidden" name="do" value="<?php echo $action; ?>">
  <input type="hidden" name="a" value="<?php echo Format::htmlchars($_REQUEST['a']); ?>">
  <input type="hidden" name="id" value="<?php echo $info['id']; ?>">
- <h2>Ticket Filter</h2>
+ <h2>Workorder Filter</h2>
  <table class="form_table" width="940" border="0" cellspacing="0" cellpadding="2">
     <thead>
         <tr>
             <th colspan="2">
                 <h4><?php echo $title; ?></h4>
-                <em>Filters are executed based on execution order. Filter can target specific ticket source.</em>
+                <em>Filters are executed based on execution order. Filter can target specific workorder source.</em>
             </th>
         </tr>
     </thead>
@@ -165,11 +165,11 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
         </tr>
         <tr>
             <td width="180">
-                Reject Ticket:
+                Reject Workorder:
             </td>
             <td>
                 <input type="checkbox" name="reject_ticket" value="1" <?php echo $info['reject_ticket']?'checked="checked"':''; ?> >
-                    <strong><font class="error">Reject Ticket</font></strong> <em>(All other actions and filters are ignored)</em>
+                    <strong><font class="error">Reject Workorder</font></strong> <em>(All other actions and filters are ignored)</em>
             </td>
         </tr>
         <tr>
@@ -183,7 +183,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
         </tr>
         <tr>
             <td width="180">
-                Ticket auto-response:
+                Workorder auto-response:
             </td>
             <td>
                 <input type="checkbox" name="disable_autoresponder" value="1" <?php echo $info['disable_autoresponder']?'checked="checked"':''; ?> >

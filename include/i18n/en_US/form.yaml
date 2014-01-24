@@ -75,7 +75,7 @@
   notes: |
       This form will be attached to every ticket, regardless of its source.
       You can add any fields to this form and they will be available to all
-      tickets, and will be searchable with advanced search and filterable.
+      workorders, and will be searchable with advanced search and filterable.
   deletable: false
   fields:
     - type: text # notrans

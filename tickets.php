@@ -21,9 +21,9 @@ require_once(INCLUDE_DIR.'class.json.php');
 $ticket=null;
 if($_REQUEST['id']) {
     if(!($ticket=Ticket::lookupByExtId($_REQUEST['id']))) {
-        $errors['err']='Unknown or invalid ticket ID.';
+        $errors['err']='Unknown or invalid workorder ID.';
     }elseif(!$ticket->checkClientAccess($thisclient)) {
-        $errors['err']='Unknown or invalid ticket ID.'; //Using generic message on purpose!
+        $errors['err']='Unknown or invalid workorder ID.'; //Using generic message on purpose!
         $ticket=null;
     }
 }
@@ -34,7 +34,7 @@ if($_POST && is_object($ticket) && $ticket->getId()):
     switch(strtolower($_POST['a'])){
     case 'reply':
         if(!$ticket->checkClientAccess($thisclient)) //double check perm again!
-            $errors['err']='Access Denied. Possibly invalid ticket ID';
+            $errors['err']='Access Denied. Possibly invalid workorder ID';
 
         if(!$_POST['message'])
             $errors['message']='Message required';

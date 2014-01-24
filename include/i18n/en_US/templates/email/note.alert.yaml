@@ -13,7 +13,7 @@ subject: |
     New Internal Note Alert
 body: |
     <h3><strong>Hi %{recipient},</strong></h3>
-    An internal note has been appended to ticket <a
+    An internal note has been appended to workorder <a
     href="%{ticket.staff_link}">#%{ticket.number}</a>
     <br>
     <br>
@@ -43,7 +43,7 @@ body: |
     <br>
     <hr>
     To view/respond to the ticket, please <a
-    href="%{ticket.staff_link}">login</a> to the support ticket system
+    href="%{ticket.staff_link}">login</a> to the support workorder system
     <br>
     <br>
     <em style="font-size: small; ">Your friendly Customer Support

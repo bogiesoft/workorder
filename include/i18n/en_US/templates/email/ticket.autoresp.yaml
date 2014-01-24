@@ -1,11 +1,11 @@
 #
 # Email template: ticket.autoresp.yaml
 #
-# Sent to a user when a new ticket is created
+# Sent to a user when a new workorder is created
 #
 ---
 notes: |
-    Sent to a user when a new ticket is created
+    Sent to a user when a new workorder is created
 
 subject: |
     Support Ticket Opened
@@ -28,7 +28,7 @@ body: |
             Dear %{ticket.name.first},
             <br>
             <br>
-            We received your request and assigned ticket #%{ticket.number}
+            We received your request and assigned workorder #%{ticket.number}
             <br>
             <br>
             Topic: <strong>%{ticket.topic.name}</strong>

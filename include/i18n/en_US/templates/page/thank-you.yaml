@@ -2,12 +2,12 @@
 # Page template: thank-you.yaml
 #
 # The thank-you page is served to the customer portal when a user submites a
-# new ticket via the customer portal.
+# new workorder via the customer portal.
 #
 ---
 notes: |
     The thank-you page is served to the customer portal when a user submites
-    a new ticket via the customer portal.
+    a new workorder via the customer portal.
 
 name: Thank You
 body: |
@@ -17,7 +17,7 @@ body: |
     Thank you for contacting us.
     <br>
     <br>
-    A support ticket request has been created and a representative will be
+    A support workorder request has been created and a representative will be
     getting back to you shortly if necessary.</p>
     <br>
     <br>

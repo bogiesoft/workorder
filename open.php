@@ -45,7 +45,7 @@ if($_POST):
 
     //Ticket::create...checks for errors..
     if(($ticket=Ticket::create($vars, $errors, SOURCE))){
-        $msg='Support ticket request created';
+        $msg='Workorder created';
         Draft::deleteForNamespace('ticket.client.'.substr(session_id(), -12));
         // Save the form data from the help-topic form, if any
         if ($form) {
@@ -61,7 +61,7 @@ if($_POST):
             @header('Location: tickets.php?id='.$ticket->getExtId());
         }
     }else{
-        $errors['err']=$errors['err']?$errors['err']:'Unable to create a ticket. Please correct errors below and try again!';
+        $errors['err']=$errors['err']?$errors['err']:'Unable to create a workorder. Please correct errors below and try again!';
     }
 endif;
 

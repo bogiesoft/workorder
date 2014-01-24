@@ -40,7 +40,7 @@ class ContentAjaxAPI extends AjaxController {
 
         $content='
 <div style="width:680px;">
-    <h2>Ticket Variables</h2>
+    <h2>Workorder Variables</h2>
     Please note that non-base variables depend on the context of use. Visit osTicket Wiki for up-to-date documentation.
     <br/>
     <table width="100%" border="0" cellspacing=1 cellpadding=2>
@@ -48,8 +48,8 @@ class ContentAjaxAPI extends AjaxController {
         <tr>
             <td width="55%" valign="top">
                 <table width="100%" border="0" cellspacing=1 cellpadding=1>
-                    <tr><td width="130">%{ticket.id}</td><td>Ticket ID (internal ID)</td></tr>
-                    <tr><td>%{ticket.number}</td><td>Ticket number (external ID)</td></tr>
+                    <tr><td width="130">%{ticket.id}</td><td>Workorder ID (internal ID)</td></tr>
+                    <tr><td>%{ticket.number}</td><td>Workorder number (external ID)</td></tr>
                     <tr><td>%{ticket.email}</td><td>Email address</td></tr>
                     <tr><td>%{ticket.name}</td><td>Full name &mdash;
                         <em>see name expansion</em></td></tr>
@@ -62,8 +62,8 @@ class ContentAjaxAPI extends AjaxController {
                     <tr><td>%{ticket.due_date}</td><td>Due date</td></tr>
                     <tr><td>%{ticket.close_date}</td><td>Date closed</td></tr>
                     <tr><td>%{ticket.auth_token}</td><td>Auth. token used for auto-login</td></tr>
-                    <tr><td>%{ticket.client_link}</td><td>Client\'s ticket view link</td></tr>
-                    <tr><td>%{ticket.staff_link}</td><td>Staff\'s ticket view link</td></tr>
+                    <tr><td>%{ticket.client_link}</td><td>Client\'s workorder view link</td></tr>
+                    <tr><td>%{ticket.staff_link}</td><td>Staff\'s workorder view link</td></tr>
                     <tr><td colspan="2" style="padding:5px 0 5px 0;"><em>Expandable Variables (See Wiki)</em></td></tr>
                     <tr><td>%{ticket.<b>topic</b>}</td><td>Help topic</td></tr>
                     <tr><td>%{ticket.<b>dept</b>}</td><td>Department</td></tr>
@@ -78,7 +78,7 @@ class ContentAjaxAPI extends AjaxController {
                     <tr><td>%{comments}</td><td>Assign/transfer comments</td></tr>
                     <tr><td>%{note}</td><td>Internal note <em>(expandable)</em></td></tr>
                     <tr><td>%{assignee}</td><td>Assigned staff/team</td></tr>
-                    <tr><td>%{assigner}</td><td>Staff assigning the ticket</td></tr>
+                    <tr><td>%{assigner}</td><td>Staff assigning the workorder</td></tr>
                     <tr><td>%{url}</td><td>osTicket\'s base url (FQDN)</td></tr>
                     <tr><td>%{reset_link}</td>
                         <td>Reset link used by the password reset feature</td></tr>

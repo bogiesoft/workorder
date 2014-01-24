@@ -20,7 +20,7 @@ if($search) {
   }
 }
 $showoverdue=$showanswered=false;
-$staffId=0; //Nothing for now...TODO: Allow admin and manager to limit tickets to single staff level.
+$staffId=0; //Nothing for now...TODO: Allow admin and manager to limit ttickets to single staff level.
 $showassigned= true; //show Assigned To column - defaults to true
 
 //Get status we are actually going to use on the query...making sure it is clean!
@@ -36,17 +36,17 @@ switch(strtolower($_REQUEST['status'])){ //Status is overloaded
     case 'overdue':
         $status='open';
         $showoverdue=true;
-        $results_type='Overdue Tickets';
+        $results_type='Overdue Workorders';
         break;
     case 'assigned':
         $status='open';
         $staffId=$thisstaff->getId();
-        $results_type='My Tickets';
+        $results_type='My Workorders';
         break;
     case 'answered':
         $status='open';
         $showanswered=true;
-        $results_type='Answered Tickets';
+        $results_type='Answered Workorders';
         break;
     default:
         if(!$search && !isset($_REQUEST['advsid']))
@@ -83,7 +83,7 @@ if (isset($_REQUEST['ownerId'])) {
 
 //Queues: Overloaded sub-statuses  - you've got to just have faith!
 if($staffId && ($staffId==$thisstaff->getId())) { //My tickets
-    $results_type='Assigned Tickets';
+    $results_type='Assigned Workorders';
     $qwhere.=' AND ticket.staff_id='.db_input($staffId);
     $showassigned=false; //My tickets...already assigned to the staff.
 }elseif($showoverdue) { //overdue
@@ -313,7 +313,7 @@ if ($results) {
             <?php } ?>
 	        <th width="70">
                 <a <?php echo $id_sort; ?> href="tickets.php?sort=ID&order=<?php echo $negorder; ?><?php echo $qstr; ?>"
-                    title="Sort By Ticket ID <?php echo $negorder; ?>">Ticket</a></th>
+                    title="Sort By Workorder ID <?php echo $negorder; ?>">ID #</a></th>
 	        <th width="70">
                 <a  <?php echo $date_sort; ?> href="tickets.php?sort=date&order=<?php echo $negorder; ?><?php echo $qstr; ?>"
                     title="Sort By Date <?php echo $negorder; ?>">Date</a></th>
@@ -401,10 +401,10 @@ if ($results) {
                 </td>
                 <?php } ?>
                 <td align="center" title="<?php echo $row['email']; ?>" nowrap>
-                  <a class="Icon <?php echo strtolower($row['source']); ?>Ticket ticketPreview" title="Preview Ticket"
+                  <a class="Icon <?php echo strtolower($row['source']); ?>Ticket ticketPreview" title="Preview Workorder"
                     href="tickets.php?id=<?php echo $row['ticket_id']; ?>"><?php echo $tid; ?></a></td>
                 <td align="center" nowrap><?php echo Format::db_datetime($row['effective_date']); ?></td>
-                <td><a <?php if($flag) { ?> class="Icon <?php echo $flag; ?>Ticket" title="<?php echo ucfirst($flag); ?> Ticket" <?php } ?>
+                <td><a <?php if($flag) { ?> class="Icon <?php echo $flag; ?>Ticket" title="<?php echo ucfirst($flag); ?> Workorder" <?php } ?>
                     href="tickets.php?id=<?php echo $row['ticket_id']; ?>"><?php echo $subject; ?></a>
                      &nbsp;
                      <?php echo ($threadcount>1)?" <small>($threadcount)</small>&nbsp;":''?>
@@ -428,7 +428,7 @@ if ($results) {
             <?php
             } //end of while.
         else: //not tickets found!! set fetch error.
-            $ferror='There are no tickets here. (Leave a little early today).';
+            $ferror='There are no workorders here. (Leave a little early today).';
         endif; ?>
     </tbody>
     <tfoot>
@@ -498,17 +498,17 @@ if ($results) {
     <a class="close" href=""><i class="icon-remove-circle"></i></a>
     <hr/>
     <p class="confirm-action" style="display:none;" id="close-confirm">
-        Are you sure want to <b>close</b> selected open tickets?
+        Are you sure want to <b>close</b> selected open workorders?
     </p>
     <p class="confirm-action" style="display:none;" id="reopen-confirm">
-        Are you sure want to <b>reopen</b> selected closed tickets?
+        Are you sure want to <b>reopen</b> selected closed workorders?
     </p>
     <p class="confirm-action" style="display:none;" id="mark_overdue-confirm">
-        Are you sure want to flag the selected tickets as <font color="red"><b>overdue</b></font>?
+        Are you sure want to flag the selected workorders as <font color="red"><b>overdue</b></font>?
     </p>
     <p class="confirm-action" style="display:none;" id="delete-confirm">
-        <font color="red"><strong>Are you sure you want to DELETE selected tickets?</strong></font>
-        <br><br>Deleted tickets CANNOT be recovered, including any associated attachments.
+        <font color="red"><strong>Are you sure you want to DELETE selected workorders?</strong></font>
+        <br><br>Deleted workorders CANNOT be recovered, including any associated attachments.
     </p>
     <div>Please confirm to continue.</div>
     <hr style="margin-top:1em"/>
@@ -524,7 +524,7 @@ if ($results) {
 </div>
 
 <div class="dialog" style="display:none;" id="advanced-search">
-    <h3>Advanced Ticket Search</h3>
+    <h3>Advanced Workorder Search</h3>
     <a class="close" href=""><i class="icon-remove-circle"></i></a>
     <form action="tickets.php" method="post" id="search" name="search">
         <input type="hidden" name="a" value="search">

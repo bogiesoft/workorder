@@ -169,7 +169,7 @@ class Client {
         if($_SESSION['_client']['laststrike']) {
             if((time()-$_SESSION['_client']['laststrike'])<$cfg->getClientLoginTimeout()) {
                 $errors['login'] = 'Excessive failed login attempts';
-                $errors['err'] = 'You\'ve reached maximum failed login attempts allowed. Try again later or <a href="open.php">open a new ticket</a>';
+                $errors['err'] = 'You\'ve reached maximum failed login attempts allowed. Try again later or <a href="open.php">open a new workorder</a>';
                 $_SESSION['_client']['laststrike'] = time(); //renew the strike.
             } else { //Timeout is over.
                 //Reset the counter for next round of attempts after the timeout.
@@ -181,7 +181,7 @@ class Client {
         if($auto_login && !$auth)
             $errors['login'] = 'Invalid method';
         elseif(!$ticketID || !Validator::is_email($email))
-            $errors['login'] = 'Valid email and ticket number required';
+            $errors['login'] = 'Valid email and workorder number required';
 
         //Bail out on error.
         if($errors) return false;
@@ -224,15 +224,15 @@ class Client {
         $_SESSION['_client']['strikes']+=1;
         if(!$errors && $_SESSION['_client']['strikes']>$cfg->getClientMaxLogins()) {
             $errors['login'] = 'Access Denied';
-            $errors['err'] = 'Forgot your login info? Please <a href="open.php">open a new ticket</a>.';
+            $errors['err'] = 'Forgot your login info? Please <a href="open.php">open a new workorder</a>.';
             $_SESSION['_client']['laststrike'] = time();
             $alert='Excessive login attempts by a user.'."\n".
-                    'Email: '.$email."\n".'Ticket#: '.$ticketID."\n".
+                    'Email: '.$email."\n".'Workorder #: '.$ticketID."\n".
                     'IP: '.$_SERVER['REMOTE_ADDR']."\n".'Time:'.date('M j, Y, g:i a T')."\n\n".
                     'Attempts #'.$_SESSION['_client']['strikes'];
             $ost->logError('Excessive login attempts (user)', $alert, ($cfg->alertONLoginError()));
         } elseif($_SESSION['_client']['strikes']%2==0) { //Log every other failed login attempt as a warning.
-            $alert='Email: '.$email."\n".'Ticket #: '.$ticketID."\n".'IP: '.$_SERVER['REMOTE_ADDR'].
+            $alert='Email: '.$email."\n".'Workorder #: '.$ticketID."\n".'IP: '.$_SERVER['REMOTE_ADDR'].
                    "\n".'TIME: '.date('M j, Y, g:i a T')."\n\n".'Attempts #'.$_SESSION['_client']['strikes'];
             $ost->logWarning('Failed login attempt (user)', $alert);
         }

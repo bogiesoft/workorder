@@ -1,5 +1,5 @@
 #
-# Default ticket filters installed for the system
+# Default workorder filters installed for the system
 #
 # NOTE: The SYSTEM BAN LIST is critically important and should _never_ be
 #       removed from this file. The name 'SYSTEM BAN LIST' is also important
@@ -8,7 +8,7 @@
 # Fields:
 # isactive - (bool:0|1) true or false if the filter is initially enabled
 # execorder - (int) order the filters should be executed in (lowest first)
-# reject_ticket - (bool:0|1) if a ticket matches the filter it should be
+# reject_ticket - (bool:0|1) if a workorder matches the filter it should be
 #       rejected (ie. not be created).
 # name - (string) Descriptive name for the filter
 # notes - (string) Administrative notes (viewable internally only)

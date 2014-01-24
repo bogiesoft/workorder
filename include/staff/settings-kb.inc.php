@@ -27,7 +27,7 @@ if(!defined('OSTADMININC') || !$thisstaff || !$thisstaff->isAdmin() || !$config)
             <td width="180">Canned Responses:</td>
             <td>
                 <input type="checkbox" name="enable_premade" value="1" <?php echo $config['enable_premade']?'checked="checked"':''; ?> >
-                Enable canned responses&nbsp;<em>(Available on ticket reply)</em>
+                Enable canned responses&nbsp;<em>(Available on workorder reply)</em>
                 &nbsp;<font class="error">&nbsp;<?php echo $errors['enable_premade']; ?></font>
             </td>
         </tr>

@@ -7,17 +7,17 @@
 # name - (string) descriptive name for the group
 # notes - (string) administrative notes (viewable internally only)
 # can_create_tickets - (bool:0|1) true or false if users of the group can
-#       create new tickets
+#       create new workorders
 # can_edit_tickets - (bool:0|1) true or false if users of the group can
-#       modify and update existing tickets
+#       modify and update existing workorders
 # can_delete_tickets - (bool:0|1) true or false if members of the group can
-#       delete tickets (permanently)
+#       delete workorders (permanently)
 # can_close_tickets - (bool:0|1) true or false if members of the group can
-#       close active tickets
+#       close active workorders
 # can_assign_ticets - (bool:0|1) true or false if members of the group can
-#       assign tickets to staff
+#       assign workorders to staff
 # can_transfer_tickets - (bool:0|1) true or false if members of the group
-#       can change the department tickets are assigne dto
+#       can change the department workorders are assigne dto
 # can_ban_emails - (bool:0|1) true or false if members of the group can add
 #       emails to the system ban list
 # can_manage_premade - (bool:0|1) true or false if members of the group can

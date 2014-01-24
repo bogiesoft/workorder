@@ -65,7 +65,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
         </tr>
         <tr>
             <td width="180">
-                New Ticket Priority
+                New Workorder Priority
             </td>
             <td>
                 <select name="priority_id">
@@ -85,7 +85,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
         </tr>
         <tr>
             <td width="180">
-                New Ticket Dept.
+                New Workorder Dept.
             </td>
             <td>
                 <select name="dept_id">
@@ -109,7 +109,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
             </td>
             <td>
                 <input type="checkbox" name="noautoresp" value="1" <?php echo $info['noautoresp']?'checked="checked"':''; ?> >
-                <strong>Disable</strong> new ticket auto-response for this
+                <strong>Disable</strong> new workorder auto-response for this
                 email. Override global and dept. settings.
             </td>
         </tr>

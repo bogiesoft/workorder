@@ -12,14 +12,14 @@
 signature:
     title: Staff Signature Line
     content: |
-        Create staff’s signature for response to tickets. This signature
-        will appear as an option at the bottom of a ticket response
+        Create staff’s signature for response to workorders. This signature
+        will appear as an option at the bottom of a workorder response
 
 type:
     title: Account Type
     content: |
         Admins have the privilege of accessing the Admin Panel. Staff only
-        have access to manage tickets and the knowledge base
+        have access to manage workorders and the knowledge base
 
 group:
     title: Assigned Group

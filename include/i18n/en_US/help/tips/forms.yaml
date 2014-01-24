@@ -83,5 +83,5 @@ field_delete:
         <br>
         <em>Deleting a field does not remove previously entered data for the
         field on completed forms. For instance, if a previously submitted
-        ticket has data for a field, deleting the field from this form will
+        workorder has data for a field, deleting the field from this form will
         not remove the data on the ticket.</em>

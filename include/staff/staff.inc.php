@@ -142,7 +142,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
             <td colspan=2>
                 <textarea class="richtext no-bar" name="signature" cols="21"
                     rows="5" style="width: 60%;"><?php echo $info['signature']; ?></textarea>
-                <br><em>Signature is made available as a choice, on ticket reply.</em>
+                <br><em>Signature is made available as a choice, on workorder reply.</em>
             </td>
         </tr>
         <tr>
@@ -246,7 +246,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
                 Limited Access:
             </td>
             <td>
-                <input type="checkbox" name="assigned_only" value="1" <?php echo $info['assigned_only']?'checked="checked"':''; ?>>Limit ticket access to ONLY assigned tickets.
+                <input type="checkbox" name="assigned_only" value="1" <?php echo $info['assigned_only']?'checked="checked"':''; ?>>Limit workorder access to ONLY assigned workorders.
             </td>
         </tr>
         <tr>
@@ -263,7 +263,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
             </td>
             <td>
                 <input type="checkbox" name="onvacation" value="1" <?php echo $info['onvacation']?'checked="checked"':''; ?>>
-                    Staff on vacation mode. (<i>No ticket assignment or alerts</i>)
+                    Staff on vacation mode. (<i>No workorder assignment or alerts</i>)
             </td>
         </tr>
         <?php
@@ -272,7 +272,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
          if(($res=db_query($sql)) && db_num_rows($res)){ ?>
         <tr>
             <th colspan="2">
-                <em><strong>Assigned Teams</strong>: Staff will have access to tickets assigned to a team they belong to regardless of the ticket's department. </em>
+                <em><strong>Assigned Teams</strong>: Staff will have access to workorders assigned to a team they belong to regardless of the workorder's department. </em>
             </th>
         </tr>
         <?php

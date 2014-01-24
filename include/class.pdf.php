@@ -97,7 +97,7 @@ class Ticket2PDF extends mPDF
 		$this->SetY(-15);
         $this->WriteCell(0, 2, '', "T", 2, 'L');
 		$this->SetFont('Arial', 'I', 9);
-		$this->WriteCell(0, 7, 'Ticket #'.$this->getTicket()->getNumber().' printed by '.$thisstaff->getUserName().' on '.date('r'), 0, 0, 'L');
+		$this->WriteCell(0, 7, 'Workorder #'.$this->getTicket()->getNumber().' printed by '.$thisstaff->getUserName().' on '.date('r'), 0, 0, 'L');
 		//$this->WriteCell(0,10,'Page '.($this->PageNo()-$this->pageOffset).' of {nb} '.$this->pageOffset.' '.$this->PageNo(),0,0,'R');
 		$this->WriteCell(0, 7, 'Page ' . ($this->PageNo() - $this->pageOffset), 0, 0, 'R');
 	}
@@ -149,7 +149,7 @@ class Ticket2PDF extends mPDF
         $this->cMargin = 0;
         $this->SetFont('Arial', 'B', 11);
         $this->SetTextColor(10, 86, 142);
-        $this->WriteCell($w, 7,'Ticket #'.$ticket->getNumber(), 0, 0, 'L');
+        $this->WriteCell($w, 7,'Workorder #'.$ticket->getNumber(), 0, 0, 'L');
         $this->Ln(7);
         $this->cMargin = 3;
         $this->SetTextColor(0);

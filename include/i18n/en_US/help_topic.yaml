@@ -8,7 +8,7 @@
 # ispublic - (bool:0|1) true or false if end users should be able to see the
 #       help topic. In other words, true or false if the help topic is _not_
 #       for internal use only
-# noautoresp - (bool:1) true to disable the auto-responder for tickets
+# noautoresp - (bool:1) true to disable the auto-responder for workorders
 #       assigned to this help topic. NOTE that this field must be completely
 #       omitted to ENABLE the auto-response by default
 # dept_id - (int) id number of the department with which this help topic is

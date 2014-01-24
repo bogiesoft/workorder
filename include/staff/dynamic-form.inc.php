@@ -27,7 +27,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
             <th colspan="2">
                 <h4><?php echo $title; ?></h4>
                 <em>Custom forms are used to allow custom data to be
-                associated with tickets</em>
+                associated with workorders</em>
             </th>
         </tr>
     </thead>
@@ -91,7 +91,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
     <thead>
         <tr>
             <th colspan="7">
-                <em><strong>Form Fields</strong> fields available for ticket information</em>
+                <em><strong>Form Fields</strong> fields available for workorder information</em>
             </th>
         </tr>
         <tr>

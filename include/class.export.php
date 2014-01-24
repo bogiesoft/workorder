@@ -35,7 +35,7 @@ class Export {
     /* static */ function dumpTickets($sql, $how='csv') {
         return self::dumpQuery($sql,
             array(
-                'ticketID' =>       'Ticket Id',
+                'ticketID' =>       'Workorder Id',
                 'created' =>        'Date',
                 'subject' =>        'Subject',
                 'name' =>           'From',
