@@ -100,7 +100,7 @@ if($search)
 $negorder=$order=='DESC'?'ASC':'DESC'; //Negate the sorting
 
 ?>
-<h1>My Tickets</h1>
+<h1>My Workorders</h1>
 <br>
 <form action="tickets.php" method="get" id="ticketSearchForm">
     <input type="hidden" name="a"  value="search">
@@ -125,7 +125,7 @@ $negorder=$order=='DESC'?'ASC':'DESC'; //Negate the sorting
     <thead>
         <tr>
             <th width="70" nowrap>
-                <a href="tickets.php?sort=ID&order=<?php echo $negorder; ?><?php echo $qstr; ?>" title="Sort By Ticket ID">Ticket #</a>
+                <a href="tickets.php?sort=ID&order=<?php echo $negorder; ?><?php echo $qstr; ?>" title="Sort By Workorder ID">ID #</a>
             </th>
             <th width="100">
                 <a href="tickets.php?sort=date&order=<?php echo $negorder; ?><?php echo $qstr; ?>" title="Sort By Date">Create Date</a>
@@ -163,7 +163,7 @@ $negorder=$order=='DESC'?'ASC':'DESC'; //Negate the sorting
             ?>
             <tr id="<?php echo $row['ticketID']; ?>">
                 <td class="centered">
-                <a class="Icon <?php echo strtolower($row['source']); ?>Ticket" title="<?php echo $row['email']; ?>"
+                <a class="Icon <?php echo strtolower($row['source']); ?>Workorder" title="<?php echo $row['email']; ?>"
                     href="tickets.php?id=<?php echo $row['ticketID']; ?>"><?php echo $ticketID; ?></a>
                 </td>
                 <td>&nbsp;<?php echo Format::db_date($row['created']); ?></td>

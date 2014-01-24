@@ -9,21 +9,21 @@ if($thisclient && $thisclient->isValid()) {
 
 $info=($_POST && $errors)?Format::htmlchars($_POST):$info;
 ?>
-<h1>Open a New Ticket</h1>
-<p>Please fill in the form below to open a new ticket.</p>
+<h1>Open a New Workorder</h1>
+<p>Please fill in the form below to open a new workorder.</p>
 <form id="ticketForm" method="post" action="open.php" enctype="multipart/form-data">
   <?php csrf_token(); ?>
   <input type="hidden" name="a" value="open">
   <table width="800" cellpadding="1" cellspacing="0" border="0">
     <tbody>
     <tr>
-        <td class="required">Help Topic:</td>
+        <td class="required"><strong>Workorder Priority:</strong></td>
         <td>
             <select id="topicId" name="topicId" onchange="javascript:
                     $('#dynamic-form').load(
                         'ajax.php/form/help-topic/' + this.value);
                     ">
-                <option value="" selected="selected">&mdash; Select a Help Topic &mdash;</option>
+                <option value="" selected="selected">&mdash; Select Workorder Priority &mdash;</option>
                 <?php
                 if($topics=Topic::getPublicHelpTopics()) {
                     foreach($topics as $id =>$name) {
@@ -83,7 +83,7 @@ $info=($_POST && $errors)?Format::htmlchars($_POST):$info;
   </table>
 <hr/>
   <p style="text-align:center;">
-        <input type="submit" value="Create Ticket">
+        <input type="submit" value="Create Workorder">
         <input type="reset" value="Reset">
         <input type="button" value="Cancel" onClick='window.location.href="index.php"'>
   </p>
