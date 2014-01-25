@@ -2100,8 +2100,8 @@ class Ticket {
         $deptId=$deptId?$deptId:$cfg->getDefaultDeptId();
         $topicId=$vars['topicId']?$vars['topicId']:0;
         $ipaddress=$vars['ip']?$vars['ip']:$_SERVER['REMOTE_ADDR'];
-//Added 2014-01-21 GEt hostname on ticket creation
-        $hostname=gethostbyaddr($ipaddress);
+//Added 2014-01-21 Get hostname on ticket creation
+        $hostname=$ipaddress?gethostbyaddr($ipaddress):$ipaddress;
 //End Added
 
         //We are ready son...hold on to the rails.

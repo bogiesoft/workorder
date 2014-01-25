@@ -336,6 +336,16 @@ jQuery(function($) {
         return false;
     });
 
+//Added 2014-01-21 Exploration-->
+    //ticket exploration
+    $('a#ticket-explore').click(function(e) {
+        e.preventDefault();
+        $('#overlay').show();
+        $('.dialog#exploration').show();
+        return false;
+    });
+//End Added
+
     //ticket status (close & reopen)
     $('a#ticket-close, a#ticket-reopen').click(function(e) {
         e.preventDefault();
