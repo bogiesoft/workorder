@@ -91,7 +91,7 @@
     - type: thread # notrans
       name: message # notrans
       label: Issue Details
-      hint: Details on the reason(s) for opening the ticket.
+      hint: Details on the reason(s) for opening the workorder.
       required: true
       edit_mask: 15
       sort: 2

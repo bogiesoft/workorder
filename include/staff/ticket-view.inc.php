@@ -40,7 +40,7 @@ if($ticket->isOverdue())
 <table width="940" cellpadding="2" cellspacing="0" border="0">
     <tr>
         <td width="50%" class="has_bottom_border">
-             <h2><a href="tickets.php?id=<?php echo $ticket->getId(); ?>" title="Reload"><i class="icon-refresh"></i> ID #<?php echo $ticket->getExtId(); ?></a></h2>
+             <h2><a href="tickets.php?id=<?php echo $ticket->getId(); ?>" title="Reload"><i class="icon-refresh"></i> Workorder #<?php echo $ticket->getExtId(); ?></a></h2>
         </td>
         <td width="50%" class="right_align has_bottom_border">
             <?php
