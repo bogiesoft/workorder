@@ -56,7 +56,8 @@ header("Content-Type: text/html; charset=UTF-8\r\n");
              }elseif($nav){ ?>
                  Guest User - <a href="<?php echo ROOT_PATH; ?>login.php">Log In</a>
               <?php
-             } ?>
+             } ?><br />
+               <a href="scp">Staff Login</a>
             </p>
         </div>
         <?php

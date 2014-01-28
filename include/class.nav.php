@@ -115,13 +115,13 @@ class StaffNav {
                     $subnav[]=array('desc'=>'Workorders','href'=>'tickets.php','iconclass'=>'Workorder', 'droponly'=>true);
                     if($staff) {
                         if(($assigned=$staff->getNumAssignedTickets()))
-                            $subnav[]=array('desc'=>"My&nbsp;Workorders ($assigned)",
+                            $subnav[]=array('desc'=>"My Workorders ($assigned)",
                                             'href'=>'tickets.php?status=assigned',
                                             'iconclass'=>'assignedTickets',
                                             'droponly'=>true);
 
                         if($staff->canCreateTickets())
-                            $subnav[]=array('desc'=>'New&nbsp;Workorder',
+                            $subnav[]=array('desc'=>'New Workorder',
                                             'title' => 'Open New Workorder',
                                             'href'=>'tickets.php?a=open',
                                             'iconclass'=>'newTicket',
@@ -131,8 +131,8 @@ class StaffNav {
                     break;
                 case 'dashboard':
                     $subnav[]=array('desc'=>'Dashboard','href'=>'dashboard.php','iconclass'=>'logs');
-                    $subnav[]=array('desc'=>'Staff&nbsp;Directory','href'=>'directory.php','iconclass'=>'teams');
-                    $subnav[]=array('desc'=>'My&nbsp;Profile','href'=>'profile.php','iconclass'=>'users');
+                    $subnav[]=array('desc'=>'Staff Directory','href'=>'directory.php','iconclass'=>'teams');
+                    $subnav[]=array('desc'=>'My Profile','href'=>'profile.php','iconclass'=>'users');
                     break;
                 case 'kbase':
                     $subnav[]=array('desc'=>'FAQs','href'=>'kb.php', 'urls'=>array('faq.php'), 'iconclass'=>'kb');
@@ -140,7 +140,7 @@ class StaffNav {
                         if($staff->canManageFAQ())
                             $subnav[]=array('desc'=>'Categories','href'=>'categories.php','iconclass'=>'faq-categories');
                         if($staff->canManageCannedResponses())
-                            $subnav[]=array('desc'=>'Canned&nbsp;Responses','href'=>'canned.php','iconclass'=>'canned');
+                            $subnav[]=array('desc'=>'Canned Responses','href'=>'canned.php','iconclass'=>'canned');
                     }
                    break;
             }
@@ -192,7 +192,7 @@ class AdminNav extends StaffNav{
             $subnav=array();
             switch(strtolower($k)){
                 case 'dashboard':
-                    $subnav[]=array('desc'=>'System&nbsp;Logs','href'=>'logs.php','iconclass'=>'logs');
+                    $subnav[]=array('desc'=>'System Logs','href'=>'logs.php','iconclass'=>'logs');
                     $subnav[]=array('desc'=>'Information','href'=>'system.php','iconclass'=>'preferences');
                     break;
                 case 'settings':
@@ -202,14 +202,14 @@ class AdminNav extends StaffNav{
                     $subnav[]=array('desc'=>'Emails','href'=>'settings.php?t=emails','iconclass'=>'email-settings');
                     $subnav[]=array('desc'=>'Knowledgebase','href'=>'settings.php?t=kb','iconclass'=>'kb-settings');
                     $subnav[]=array('desc'=>'Autoresponder','href'=>'settings.php?t=autoresp','iconclass'=>'email-autoresponders');
-                    $subnav[]=array('desc'=>'Alerts&nbsp;&amp;&nbsp;Notices','href'=>'settings.php?t=alerts','iconclass'=>'alert-settings');
+                    $subnav[]=array('desc'=>'Alerts &amp; Notices','href'=>'settings.php?t=alerts','iconclass'=>'alert-settings');
                     break;
                 case 'manage':
-                    $subnav[]=array('desc'=>'Help&nbsp;Topics','href'=>'helptopics.php','iconclass'=>'helpTopics');
-                    $subnav[]=array('desc'=>'Workorder&nbsp;Filters','href'=>'filters.php',
-                                        'title'=>'Workorder&nbsp;Filters','iconclass'=>'ticketFilters');
-                    $subnav[]=array('desc'=>'SLA&nbsp;Plans','href'=>'slas.php','iconclass'=>'sla');
-                    $subnav[]=array('desc'=>'API&nbsp;Keys','href'=>'apikeys.php','iconclass'=>'api');
+                    $subnav[]=array('desc'=>'Help Topics','href'=>'helptopics.php','iconclass'=>'helpTopics');
+                    $subnav[]=array('desc'=>'Workorder Filters','href'=>'filters.php',
+                                        'title'=>'Workorder Filters','iconclass'=>'ticketFilters');
+                    $subnav[]=array('desc'=>'SLA Plans','href'=>'slas.php','iconclass'=>'sla');
+                    $subnav[]=array('desc'=>'API Keys','href'=>'apikeys.php','iconclass'=>'api');
                     $subnav[]=array('desc'=>'Pages', 'href'=>'pages.php','title'=>'Pages','iconclass'=>'pages');
                     $subnav[]=array('desc'=>'Forms','href'=>'forms.php','iconclass'=>'forms');
                     $subnav[]=array('desc'=>'Lists','href'=>'lists.php','iconclass'=>'lists');
@@ -217,12 +217,12 @@ class AdminNav extends StaffNav{
                 case 'emails':
                     $subnav[]=array('desc'=>'Emails','href'=>'emails.php', 'title'=>'Email Addresses', 'iconclass'=>'emailSettings');
                     $subnav[]=array('desc'=>'Banlist','href'=>'banlist.php',
-                                        'title'=>'Banned&nbsp;Emails','iconclass'=>'emailDiagnostic');
+                                        'title'=>'Banned Emails','iconclass'=>'emailDiagnostic');
                     $subnav[]=array('desc'=>'Templates','href'=>'templates.php','title'=>'Email Templates','iconclass'=>'emailTemplates');
                     $subnav[]=array('desc'=>'Diagnostic','href'=>'emailtest.php', 'title'=>'Email Diagnostic', 'iconclass'=>'emailDiagnostic');
                     break;
                 case 'staff':
-                    $subnav[]=array('desc'=>'Staff&nbsp;Members','href'=>'staff.php','iconclass'=>'users');
+                    $subnav[]=array('desc'=>'Staff Members','href'=>'staff.php','iconclass'=>'users');
                     $subnav[]=array('desc'=>'Teams','href'=>'teams.php','iconclass'=>'teams');
                     $subnav[]=array('desc'=>'Groups','href'=>'groups.php','iconclass'=>'groups');
                     $subnav[]=array('desc'=>'Departments','href'=>'departments.php','iconclass'=>'departments');
@@ -274,18 +274,18 @@ class UserNav {
 
             $navs = array();
             $user = $this->user;
-            $navs['home']=array('desc'=>'Support&nbsp;Center&nbsp;Home','href'=>'index.php','title'=>'');
+            $navs['home']=array('desc'=>'Support Center Home','href'=>'index.php','title'=>'');
             if($cfg && $cfg->isKnowledgebaseEnabled())
                 $navs['kb']=array('desc'=>'Knowledgebase','href'=>'kb/index.php','title'=>'');
 
-            $navs['new']=array('desc'=>'Open&nbsp;New&nbsp;Workorder','href'=>'open.php','title'=>'');
+            $navs['new']=array('desc'=>'Open New Workorder','href'=>'open.php','title'=>'');
             if($user && $user->isValid()) {
                 if($cfg && $cfg->showRelatedTickets()) {
-                    $navs['tickets']=array('desc'=>sprintf('My&nbsp;Workorders&nbsp;(%d)',$user->getNumTickets()),
+                    $navs['tickets']=array('desc'=>sprintf('My Workorders (%d)',$user->getNumTickets()),
                                            'href'=>'tickets.php',
                                             'title'=>'Show all workorders');
                 } else {
-                    $navs['tickets']=array('desc'=>'View&nbsp;Workorder&nbsp;Thread',
+                    $navs['tickets']=array('desc'=>'View Workorder Thread',
                                            'href'=>sprintf('tickets.php?id=%d',$user->getTicketID()),
                                            'title'=>'View workorder status');
                 }
