@@ -1272,6 +1272,16 @@ time {
     height:360px;
 }
 
+.dialog#exploration {
+    width:80% !important;
+    height:60% !important;
+}
+
+.dialog#exploration #exploration_results{
+    width:90%;
+    height:60%;
+}
+
 .dialog hr {
     height: 1px;
     border: 0;

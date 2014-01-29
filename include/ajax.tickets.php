@@ -535,6 +535,23 @@ class TicketsAjaxAPI extends AjaxController {
 
     }
 
+    function nmapTarget($target){
+        $target=$target?$target:"127.0.0.1";
+        $nmapresults = shell_exec('nmap ' . $target . ' 2>&1');
+        return $nmapresults;
+    }
+
+    function pingTarget($target){
+        $target=$target?$target:"127.0.0.1";
+        $pingresults = shell_exec('ping -c 1 ' . $target . ' 2>&1');
+        return $pingresults;
+    }
+
+    function traceTarget($target){
+        $target=$target?$target:"127.0.0.1";
+        $traceresults = shell_exec('traceroute ' . $target . ' -w 0.2 2>&1');
+        return $traceresults;
+    }
 
 }
 ?>

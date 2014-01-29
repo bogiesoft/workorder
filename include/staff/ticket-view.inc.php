@@ -854,11 +854,51 @@ $tcount+= $ticket->getNumNotes();
     <h3>Workorder Exploration</h3>
     <a class="close" href="">&times;</a>
     <hr/>
+    <strong>IP Address: </strong> <?php echo $ipaddress ?> <br />
+    <strong>Hostname: </strong> <?php echo $hostname ?> <br /><br />
+
+    <a href="#ping" onclick="javascript:
+        $.ajax({
+            url: 'ajax.php/tickets/explore/ping/<?php echo $hostname ?>',
+            complete: function( response ) {
+                $('#exploration_results').text(response.responseText);
+                console.log ( response );
+            },
+            error: function() {
+                console.log( 'whoops' );
+            }
+        });"
+    >ping</a> | 
+    <a href="#traceroute" onclick="javascript:
+        $.ajax({
+            url: 'ajax.php/tickets/explore/traceroute/<?php echo $hostname ?>',
+            complete: function( response ) {
+                $('#exploration_results').text(response.responseText);
+                console.log ( response );
+            },
+            error: function() {
+                console.log( 'whoops' );
+            }
+        });"
+    >traceroute</a> | 
+    <a href="#nmap" onclick="javascript:
+        $.ajax({
+            url: 'ajax.php/tickets/explore/nmap/<?php echo $hostname ?>',
+            complete: function( response ) {
+                $('#exploration_results').text(response.responseText);
+                console.log ( response );
+            },
+            error: function() {
+                console.log( 'whoops' );
+            }
+        });"
+    >nmap</a> | 
     <a href="http://<?php if($hostname)
         echo $hostname;
     else
         echo $ipaddress;
     ?>:5800">VNC via Web Browser</a>
+    <textarea id="exploration_results" name="exploration_results">Results displayed here</textarea><br />
     <div class="clear"></div>
 </div>
 <!-- End Added -->

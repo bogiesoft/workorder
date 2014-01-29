@@ -79,7 +79,10 @@ $dispatcher = patterns('',
         url_post('^(?P<tid>\d+)/lock/(?P<id>\d+)/renew', 'renewLock'),
         url_post('^(?P<tid>\d+)/lock/(?P<id>\d+)/release', 'releaseLock'),
         url_get('^lookup', 'lookup'),
-        url_get('^search', 'search')
+        url_get('^search', 'search'),
+        url_get('^explore/nmap/(?P<target>.+)$', 'nmapTarget'),
+        url_get('^explore/ping/(?P<target>.+)$', 'pingTarget'),
+        url_get('^explore/traceroute/(?P<target>.+)$', 'traceTarget')
     )),
     url('^/draft/', patterns('ajax.draft.php:DraftAjaxAPI',
         url_post('^(?P<id>\d+)$', 'updateDraft'),
